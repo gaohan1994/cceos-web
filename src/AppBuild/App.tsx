@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { createWebNavigation, WebNavigator } from './Route';
 import { Home, Packet } from '../container';
+import { Provider } from 'react-redux';
+import { configureStore } from '../store';
+
+export const AppStore = configureStore();
 
 const routes: WebNavigator[] = [
   {
@@ -20,7 +24,9 @@ export interface Props { }
 class App extends React.Component<Props> {
   public render() {
     return (
-      <MyWebNavigation />
+      <Provider store={AppStore} >
+        <MyWebNavigation />
+      </Provider>
     );
   }
 }

@@ -13,6 +13,8 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const tsImportPluginFactory = require("ts-import-plugin");
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
@@ -145,7 +147,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
               compact: true,
             },
           },
@@ -160,6 +161,15 @@ module.exports = {
                 options: {
                   // disable type checker - we will use it in fork plugin
                   transpileOnly: true,
+                  getCustomTransformers: () => ({
+                    before: [
+                      tsImportPluginFactory({
+                        libraryDirectory: 'es',
+                        libraryName: 'antd-mobile',
+                        style: true,
+                      }),
+                    ]
+                  }),
                 },
               },
             ],
@@ -170,7 +180,7 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.css$/,
+            test: /\.(css|less)$/,
             use: [
               require.resolve('style-loader'),
               {
@@ -199,6 +209,13 @@ module.exports = {
                   ],
                 },
               },
+              {
+                loader: require.resolve('less-loader'),
+                options: {
+                  importLoaders: 1,
+                  javascriptEnabled: true
+                },
+              }
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.

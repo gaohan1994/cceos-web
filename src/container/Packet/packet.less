@@ -1,0 +1,145 @@
+
+@packetPrefix: ct-packet;
+@packet-text-prefix: ct-packet-text;
+@packet-text-color: #ffe2b1;
+@packet-title-prefix: ct-packet-title;
+@packet-title-color: #333;
+@packet-sub-title-prefix: ct-packet-sub-title;
+@packet-sub-title-color: #666;
+@packet-background-color: #fffaf7;
+
+.@{packet-text-prefix} {
+  color: @packet-text-color;
+}
+
+.@{packet-title-prefix} {
+  color: @packet-title-color;
+}
+
+.@{packet-sub-title-prefix} {
+  color: @packet-sub-title-color;
+}
+
+.@{packetPrefix} {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: @packet-background-color;
+
+  img {
+    display: block;
+    width: 9.3vw;
+    height: 9.3vw;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 80.8vw;
+    box-sizing: border-box;
+    background-image: url("http://net.huanmusic.com/cceos/bg_hong.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+
+    & span {
+      display: block;
+    }
+
+    &-content {
+      display: flex;
+      align-items: center;
+
+      &-img {
+        margin-right: 12px;
+      }
+
+      &-title {
+        font-size: 18px;
+      }
+
+      &-sub-title {
+        font-size: 14px;
+        margin-top: 12px;
+      }
+
+      &-detail {
+        font-size: 45px;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  &-list {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 40px;
+
+    & > .am-list-body::before {
+      height: 0px !important;
+    }
+
+    & span {
+      display: block;
+    }
+    &-item {
+      background-color: @packet-background-color;
+      padding-left: 0px;
+
+      &-flag {
+        width: 77vw;
+        height: 5vw;
+        background-image: url("http://net.huanmusic.com/cceos/line_shouqi@3x.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-color: @packet-background-color;
+      }
+
+      & > .am-list-line {
+        padding-right: 0px;
+      }
+
+      &-line {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-title {
+        display: flex;
+        align-items: center;
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-sub-content {
+        align-items: flex-end;
+      }
+
+      &-img {
+        margin-right: 12px;
+      }
+
+      &-name {
+        font-size: 15px;
+      }
+
+      &-detail {
+        font-size: 12px;
+      }
+
+      &-best {
+        width: 17vw;
+        height: 3.7vw;
+        background-image: url("http://net.huanmusic.com/cceos/img_optimum@3x.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center center;
+      }
+    }
+  }
+}

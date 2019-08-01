@@ -70,7 +70,6 @@ const switchTransition = {
 };
 
 function createSwitchNavigation (transition: boolean): { SwitchComponent: any, SwitchProps: any } {
-  console.log('transition: ', transition);
   
   if (transition === true) {
     /**
