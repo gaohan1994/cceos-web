@@ -4,6 +4,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { List } from 'antd-mobile';
 import "./packet.less";
 import classnames from 'classnames';
+import { PacketModal } from '../../component';
 
 const PacketPrefix = 'ct-packet';
 const ListItemClassName = `${PacketPrefix}-list-item`;
@@ -24,6 +25,7 @@ class Packet extends Component<Props> {
     const data = [1, 2, 3, 4];
     return (
       <div className={classnames(`${PacketPrefix}`)}>
+        <PacketModal visible={true} />
         <div className={classnames(`${PacketPrefix}-header`)}>
           <div className={`${PacketPrefix}-header-content`}>
             <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />

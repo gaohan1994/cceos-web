@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createWebNavigation, WebNavigator } from './Route';
-import { Home, Packet } from '../container';
+import { Home, Packet, Recharge } from '../container';
 import { Provider } from 'react-redux';
 import { configureStore } from '../store';
 
@@ -15,7 +15,11 @@ const routes: WebNavigator[] = [
   {
     path: '/packet',
     component: Packet
-  }
+  },
+  {
+    path: '/recharge',
+    component: Recharge
+  },
 ];
 const MyWebNavigation = createWebNavigation({ routes });
 
