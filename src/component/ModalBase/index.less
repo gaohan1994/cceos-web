@@ -1,21 +1,48 @@
-@import "./animation.less";
-
 @modal-base-prefix: modal-base;
 @modal-z-index: 100;
 
 .@{modal-base-prefix} {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: @modal-z-index;
-  background: rgba(0, 0, 0, .4);
+
+  &-mask {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: @modal-z-index;
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  &-mask-hidden {
+    display: none;
+  }
 
   &-transparent {
     background: transparent;
+  }
+
+  &-active {
+    display: flex;
+  }
+
+  @keyframes modalBaseFadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes modalBaseFadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 }

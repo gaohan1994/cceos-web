@@ -5,15 +5,27 @@ import { List } from 'antd-mobile';
 import "./packet.less";
 import classnames from 'classnames';
 import { PacketModal } from '../../component';
+import { Modal } from 'antd-mobile';
+console.log('Modal: ', Modal);
+console.log('PacketModal: ', PacketModal);
 
 const PacketPrefix = 'ct-packet';
 const ListItemClassName = `${PacketPrefix}-list-item`;
 const { Item } = List;
+
 type Props = {
   fetchData: (params?: any) => any;
 };
 
-class Packet extends Component<Props> {
+type State = {
+  visible: boolean;
+};
+
+class Packet extends Component<Props, State> {
+
+  state = {
+    visible: false
+  };
 
   componentDidMount() {
     const { fetchData } = this.props;
@@ -25,7 +37,26 @@ class Packet extends Component<Props> {
     const data = [1, 2, 3, 4];
     return (
       <div className={classnames(`${PacketPrefix}`)}>
-        <PacketModal visible={true} />
+
+        <Modal
+          visible={this.state.visible}
+          transparent={true}
+          maskClosable={false}
+          title="Title"
+        >
+          <div style={{ height: 100, overflow: 'scroll' }}>
+            scoll content...<br />
+            scoll content...<br />
+            scoll content...<br />
+            scoll content...<br />
+            scoll content...<br />
+            scoll content...<br />
+          </div>
+        </Modal>
+        <div onClick={() => { this.setState({visible: true}); }}>click</div>
+        {/* <PacketModal visible={this.state.visible} >
+          <div>hello world</div>
+        </PacketModal> */}
         <div className={classnames(`${PacketPrefix}-header`)}>
           <div className={`${PacketPrefix}-header-content`}>
             <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />

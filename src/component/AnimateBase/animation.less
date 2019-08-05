@@ -1,0 +1,46 @@
+@animation-base-prefix: animation-base;
+
+.@{animation-base-prefix} {
+  .effect() {
+    animation-duration: .2s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.55, 0, .55, .2);
+  }
+
+  &-fade-enter {
+    opacity: 0;
+    .effect();
+  }
+
+  &-fade-leave {
+    .effect();
+  }
+
+  &-fade-enter&-fade-enter-active {
+    animation-name: baseFadeIn;
+    animation-play-state: running;
+  }
+
+  &-fade-leave&-fade-leave-active {
+    animation-name: baseFadeOut;
+    animation-play-state: running;
+  }
+
+  @keyframes baseFadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes baseFadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
