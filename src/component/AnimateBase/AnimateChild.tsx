@@ -35,8 +35,6 @@ export default class AnimateChild extends React.Component<AnimateChildProps> {
   }
 
   public componentWillEnter = (callback: any): void => {
-    console.log('this.props: ', this.props);
-    console.log('componentWillEnter support :', AnimateUtil.isEnterSupported(this.props));
     if (AnimateUtil.isEnterSupported(this.props)) {
       this.transition('enter', callback);
     } else {
@@ -45,7 +43,7 @@ export default class AnimateChild extends React.Component<AnimateChildProps> {
   }
 
   public componentWillLeave = (callback: any): void => {
-    console.log('componentWillLeave: ');
+    // console.log('componentWillLeave: ');
 
     if (AnimateUtil.isLeaveSupported) {
       this.transition('leave', callback);
@@ -55,7 +53,7 @@ export default class AnimateChild extends React.Component<AnimateChildProps> {
   }
 
   public transition = (animationWay: string, callback: () => void): void => {
-    console.log('animate child props', this.props);
+    // console.log('animate child props', this.props);
     /**
      * [1.找到做动画的dom]
      * [2.停止之前的动画]
@@ -72,7 +70,6 @@ export default class AnimateChild extends React.Component<AnimateChildProps> {
     };
 
     const name = transitionName + '-' + animationType + '-' + animationWay;
-    console.log('css name : ', name);
     this.stopper = cssAnimation(node, {
       name,
       active: name + '-active',

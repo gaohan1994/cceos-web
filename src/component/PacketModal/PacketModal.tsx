@@ -1,11 +1,10 @@
 import React from 'react';
 import "./index.less";
-import ModalWrap from '../ModalBase/ModalWrap';
+import { Modal } from '../ModalBase';
 // import classnames from 'classnames';
+import { ModalWrapProps } from '../ModalBase/ModalWrap';
 
-export type PacketModalProps = {
-  visible: boolean;
-};
+export type PacketModalProps = ModalWrapProps;
 type State = {};
 
 class PacketModal extends React.Component<PacketModalProps, State> {
@@ -13,11 +12,11 @@ class PacketModal extends React.Component<PacketModalProps, State> {
   public render () {
     const { children, ...rest } = this.props;
     return (
-      <ModalWrap
+      <Modal
         {...rest}
       >
         {children}
-      </ModalWrap>
+      </Modal>
     );
   }
 }

@@ -12,6 +12,7 @@ export default class ModalWrap extends React.Component<ModalWrapProps> {
     prefixCls: 'modal'
   };
 
+  private modalRef: any;
   private container: Element | null;
 
   public shouldComponentUpdate = (nextProps: ModalWrapProps) => {
@@ -24,11 +25,11 @@ export default class ModalWrap extends React.Component<ModalWrapProps> {
   }
 
   public getChildNode = (visible: boolean) => {
-
     const { visible: propsVisible, transitionLeave, ...rest } = this.props;
     return (
       <Modal
         {...rest}
+        ref={(modalRef) => this.modalRef = modalRef}
         visible={visible}
         transitionLeave={this.removeContainerNode}
       />
@@ -58,7 +59,7 @@ export default class ModalWrap extends React.Component<ModalWrapProps> {
   public render() {
     const { visible } = this.props;
 
-    if (visible === true) {
+    if (visible || this.modalRef) {
       return ReactDOM.createPortal(this.getChildNode(visible), this.getContainerNode());
     } else {
       return null;

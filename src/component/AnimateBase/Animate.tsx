@@ -2,6 +2,7 @@ import React from 'react';
 import { childToArray } from './ReactUtil';
 import AnimateChild, { AnimateChildProps } from './AnimateChild';
 import { AnimateFuncition } from './AnimateChild';
+import { merge } from 'lodash';
 
 export type AnimateBaseProps = {
   children: React.ReactNode;
@@ -44,6 +45,8 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
   private childrenRefs: {
     [key: string]: React.ReactNode;
   };
+  private keysToEnter: any[];
+  private keysToLeave: any[];
 
   constructor (props: AnimateBaseProps) {
     super(props);
@@ -52,9 +55,12 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
     };
     this.currentAnimatingKeys = {};
     this.childrenRefs = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
   }
 
   public componentDidMount = () => {
+    // console.log('componentDidMount: ', this.props);
     const { showToken } = this.props;
     const { children } = this.state;
     let currentChildren: React.ReactNode[] = [];
@@ -75,8 +81,60 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
     });
   }
 
+  public componentWillReceiveProps = (nextProps: AnimateBaseProps) => {
+    // console.log('componentWillReceiveProps: ');
+    // console.log('showToken: ', nextProps.showToken);
+    const { showToken } = this.props;
+    const { } = nextProps;
+
+    const { children } = this.state;
+    const nextChildren = childToArray(getChildFromProps(nextProps));
+    // console.log('children: ', children);
+    // console.log('nextChildren: ', nextChildren);
+    // console.log('currentAnimatingKeys: ', this.currentAnimatingKeys);
+    nextChildren.forEach((child) => {
+      const key = child && child.key;
+
+      if (child && this.currentAnimatingKeys[key]) {
+        return;
+      }
+
+      if (showToken) {
+        this.keysToEnter.push(key);
+      }
+    });
+
+    children.forEach((child: any) => {
+      const key = child && child.key;
+
+      if (child && this.currentAnimatingKeys[key]) {
+        return;
+      }
+
+      if (showToken) {
+        this.keysToLeave.push(key);
+      }
+    });
+
+    // console.log('this.keys', this.keysToEnter);
+    // console.log('this.keys', this.keysToLeave);
+  }
+
+  public componentDidUpdate = () => {
+    const keysToEnterMerge = merge([], this.keysToEnter);
+    this.keysToEnter = [];
+    // console.log('keysToEnterMerge:', keysToEnterMerge);
+    keysToEnterMerge.forEach(this.perpareEnter);
+
+    const keysToLeaveMerge = merge([], this.keysToLeave);
+    this.keysToLeave = [];
+    // console.log('keysToLeaveMerge: ', keysToLeaveMerge);
+    keysToLeaveMerge.forEach(this.prepareLeave);
+  }
+  
   public handleDoneAdding = (key: React.Key, type: string) => {
     const { transitionEnter, transitionEnd } = this.props;
+    delete this.currentAnimatingKeys[key];
     if (type === 'enter' && transitionEnter) {
       transitionEnter(key);      
       if (transitionEnd) {
@@ -87,6 +145,7 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
 
   public handleDoneLeaving = (key: React.Key) => {
     const { transitionLeave, transitionEnd } = this.props;
+    delete this.currentAnimatingKeys[key];
     if (transitionLeave) {
       transitionLeave(key);
       if (transitionEnd) {
@@ -96,12 +155,10 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
   }
 
   public perpareEnter = (key: React.Key) => {
-    console.log('this.childrenRefs[key]: ', this.childrenRefs[key]);
     if (this.childrenRefs[key]) {
       this.currentAnimatingKeys[key] = true;
       if (this.childrenRefs[key]) {
         const currentChildren: any = this.childrenRefs[key];
-        console.log('currentChildren: ', currentChildren);
         currentChildren.componentWillEnter(() => this.handleDoneAdding(key, 'enter'));
       }
     }
@@ -113,7 +170,7 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
    * @memberof Animate
    */
   public perpareAppear = (key: React.Key) => {
-    console.log('perpareAppear'); 
+    // console.log('perpareAppear'); 
   }
 
   /**
@@ -122,7 +179,7 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
    * @memberof Animate
    */
   public prepareLeave = (key: React.Key) => {
-    console.log('prepareLeave');
+    // console.log('prepareLeave');
     if (this.childrenRefs[key]) {
       this.currentAnimatingKeys[key] = true;
       if (this.childrenRefs[key]) {
@@ -142,7 +199,7 @@ class Animate extends React.Component<AnimateBaseProps, AnimateBaseState> {
       transitionLeave,
       ...rest
     } = this.props;
-
+    // console.log('this.state', this.state);
     let renderChildren: any = null;
 
     if (children) {

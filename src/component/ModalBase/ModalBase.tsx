@@ -12,8 +12,10 @@ export type ModalBaseProps = {
   classNamePrefix?: string;
   maskStyle?: any;
   maskProps?: any;
+  maskClose?: boolean;
   transitionName?: 'fade';
   transparent?: boolean;
+  onClose?: (params?: any) => any;
 } & Partial<AnimateBaseProps>;
 type State = {};
 
@@ -23,6 +25,8 @@ class ModalBase extends React.Component<ModalBaseProps, State> {
   static defaultProps = {
     transitionName: 'fade',
     transparent: false,
+    classNamePrefix: modalPrefix,
+    maskClose: true,
   };
 
   // private headerRef: any;
@@ -40,22 +44,36 @@ class ModalBase extends React.Component<ModalBaseProps, State> {
       this.props.transitionLeave();
     }
   }
+
+  public onClose = (e: any) => {
+    if (this.props.onClose) {
+      this.props.onClose(e);
+    }
+  }
+
+  public onMaskClick = (e: any) => {
+    if (e.target === e.currentTarget) {
+      this.onClose(e);
+    }
+  }
   
   render () {
     const { 
-      // visible, 
+      visible, 
       className, 
+      classNamePrefix,
       transparent,
+      maskClose,
       // transitionName,
       // children,
       // ...rest
     } = this.props;
-
+    console.log('visible: ', visible);
     const classNames = classnames(
       className, 
-      `${modalPrefix}`,
+      `${classNamePrefix}`,
       {
-        [`${modalPrefix}-transparent`]: transparent
+        [`${classNamePrefix}-transparent`]: transparent
       }
     );
     return (
@@ -64,18 +82,23 @@ class ModalBase extends React.Component<ModalBaseProps, State> {
         className={classNames}
       >
         {this.renderMaskElement()}
-        {this.renderAnimateElement()}
+        <div 
+          className={`${classNamePrefix}-wrap`} 
+          onClick={maskClose === true ? this.onMaskClick : undefined}
+        >
+          {this.renderAnimateElement()}
+        </div>
       </div>
     );
   }
 
   private renderMaskElement = () => {
-    const { maskStyle = {}, maskProps = {}, visible } = this.props;
+    const { classNamePrefix, maskStyle = {}, maskProps = {}, visible } = this.props;
     const MaskElement = (
       <LazyRender 
         style={maskStyle || {}}
-        className={`${modalPrefix}-mask`}
-        hiddenClassName={`${modalPrefix}-mask-hidden`}
+        className={`${classNamePrefix}-mask`}
+        hiddenClassName={`${classNamePrefix}-mask-hidden`}
         visible={visible}
         {...maskProps}
       />
@@ -86,7 +109,7 @@ class ModalBase extends React.Component<ModalBaseProps, State> {
   }
 
   private renderAnimateElement = () => {
-    const { children, title, classNamePrefix } = this.props;
+    const { visible, children, title, classNamePrefix } = this.props;
 
     const header = 
       (typeof title === 'string' || typeof title === 'number') 
@@ -106,7 +129,10 @@ class ModalBase extends React.Component<ModalBaseProps, State> {
     //   : title;
 
     const AnimateElement = (
-      <LazyRender>
+      <LazyRender
+        visible={visible}
+        className={`${classNamePrefix}-content`}
+      >
         {header}
         {children}
         {/* {footer} */}

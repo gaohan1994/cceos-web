@@ -13,25 +13,21 @@
 .modal-base-mask-hidden {
   display: none;
 }
+.modal-base-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .modal-base-transparent {
   background: transparent;
 }
 .modal-base-active {
   display: flex;
-}
-@keyframes modalBaseFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes modalBaseFadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 }

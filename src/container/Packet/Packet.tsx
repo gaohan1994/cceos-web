@@ -38,11 +38,12 @@ class Packet extends Component<Props, State> {
     return (
       <div className={classnames(`${PacketPrefix}`)}>
 
-        <Modal
+        {/* <Modal
           visible={this.state.visible}
           transparent={true}
-          maskClosable={false}
+          maskClosable={true}
           title="Title"
+          onClose={() => this.setState({visible: false})}
         >
           <div style={{ height: 100, overflow: 'scroll' }}>
             scoll content...<br />
@@ -52,11 +53,15 @@ class Packet extends Component<Props, State> {
             scoll content...<br />
             scoll content...<br />
           </div>
-        </Modal>
+        </Modal> */}
         <div onClick={() => { this.setState({visible: true}); }}>click</div>
-        {/* <PacketModal visible={this.state.visible} >
-          <div>hello world</div>
-        </PacketModal> */}
+        <PacketModal 
+          visible={this.state.visible} 
+          onClose={() => this.setState({visible: false})}
+          title="hello world"
+        >
+          <div>this is children</div>
+        </PacketModal>
         <div className={classnames(`${PacketPrefix}-header`)}>
           <div className={`${PacketPrefix}-header-content`}>
             <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />
@@ -106,7 +111,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
   function fetchPacket (params: any) {
     return (dispatch: Dispatch) => {
-      console.log('params: ', params);
+      // 
     };
   }
 
