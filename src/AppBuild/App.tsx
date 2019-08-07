@@ -26,6 +26,16 @@ const MyWebNavigation = createWebNavigation({ routes });
 export interface Props { }
 
 class App extends React.Component<Props> {
+
+  constructor (props: Props) {
+    super(props);
+    this.init();
+  }
+
+  public init = () => {
+    // 
+  }
+
   public render() {
     return (
       <Provider store={AppStore} >

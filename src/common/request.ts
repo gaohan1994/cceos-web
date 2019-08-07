@@ -1,3 +1,4 @@
+import Secure from './Secure';
 
 /**
  * @param message string 打印信息
@@ -64,7 +65,7 @@ export const request = async (
   if (options.method) {
     if (options.method.toUpperCase() !== 'GET') {
       options.body = params
-      ? JSON.stringify(params) 
+      ? JSON.stringify(Secure.encryption(params)) 
       : '';
     }
   }

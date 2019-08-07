@@ -6,4 +6,8 @@ const AppConfig: AppConfigType = {
   environment: 'development'
 };
 
+export async function WxJsSdkConfig () {
+  // 
+}
+
 export { AppConfig };
