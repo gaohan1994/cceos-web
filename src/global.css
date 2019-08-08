@@ -1,11 +1,11 @@
 .animation-base-fade-enter {
   opacity: 0;
-  animation-duration: .2s;
+  animation-duration: 2s;
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
 }
 .animation-base-fade-leave {
-  animation-duration: .2s;
+  animation-duration: 2s;
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
 }

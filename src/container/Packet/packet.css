@@ -1,0 +1,111 @@
+.ct-packet-text {
+  color: #ffe2b1;
+}
+.ct-packet-title {
+  color: #333;
+}
+.ct-packet-sub-title {
+  color: #666;
+}
+.ct-packet {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #fffaf7;
+}
+.ct-packet img {
+  display: block;
+  width: 9.3vw;
+  height: 9.3vw;
+}
+.ct-packet-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 80.8vw;
+  box-sizing: border-box;
+  background-image: url("http://net.huanmusic.com/cceos/bg_hong.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 50% 50%;
+}
+.ct-packet-header span {
+  display: block;
+}
+.ct-packet-header-content {
+  display: flex;
+  align-items: center;
+}
+.ct-packet-header-content-img {
+  margin-right: 12px;
+}
+.ct-packet-header-content-title {
+  font-size: 18px;
+}
+.ct-packet-header-content-sub-title {
+  font-size: 14px;
+  margin-top: 12px;
+}
+.ct-packet-header-content-detail {
+  font-size: 45px;
+  margin-top: 40px;
+}
+.ct-packet-list {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-top: 40px;
+}
+.ct-packet-list > .am-list-body::before {
+  height: 0px !important;
+}
+.ct-packet-list span {
+  display: block;
+}
+.ct-packet-list-item {
+  background-color: #fffaf7;
+  padding-left: 0px;
+}
+.ct-packet-list-item-flag {
+  width: 77vw;
+  height: 5vw;
+  background-image: url("http://net.huanmusic.com/cceos/line_shouqi@3x.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #fffaf7;
+}
+.ct-packet-list-item > .am-list-line {
+  padding-right: 0px;
+}
+.ct-packet-list-item-line {
+  display: flex;
+  justify-content: space-between;
+}
+.ct-packet-list-item-title {
+  display: flex;
+  align-items: center;
+}
+.ct-packet-list-item-content {
+  display: flex;
+  flex-direction: column;
+}
+.ct-packet-list-item-sub-content {
+  align-items: flex-end;
+}
+.ct-packet-list-item-img {
+  margin-right: 12px;
+}
+.ct-packet-list-item-name {
+  font-size: 15px;
+}
+.ct-packet-list-item-detail {
+  font-size: 12px;
+}
+.ct-packet-list-item-best {
+  width: 17vw;
+  height: 3.7vw;
+  background-image: url("http://net.huanmusic.com/cceos/img_optimum@3x.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}

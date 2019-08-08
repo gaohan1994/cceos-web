@@ -9,3 +9,8 @@ export interface ResponseBasic<T> {
   data: T;
   msg: string;
 }
+
+export type BasicInfo = {
+  name: string;
+  department: string;
+};

@@ -1,14 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import packet, { PacketStore } from './packet';
+import store, { StoreType } from './store';
 
 export type Store = {
-  packet: PacketStore
+  store: StoreType
 };
 
 const reducer = combineReducers({
-  packet
+  store
 });
 
 export const configureStore = () => {

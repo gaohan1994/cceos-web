@@ -5,7 +5,9 @@ import { List } from 'antd-mobile';
 import "./packet.less";
 import classnames from 'classnames';
 import { PacketModal } from '../../component';
-import { Modal } from 'antd-mobile';
+import { Modal, Toast } from 'antd-mobile';
+import Api from 'src/action/Api';
+import invariant from 'invariant';
 console.log('Modal: ', Modal);
 console.log('PacketModal: ', PacketModal);
 
@@ -15,6 +17,11 @@ const { Item } = List;
 
 type Props = {
   fetchData: (params?: any) => any;
+  match: {
+    params: {
+      bonusToken: string
+    }
+  };
 };
 
 type State = {
@@ -28,8 +35,14 @@ class Packet extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { fetchData } = this.props;
-    fetchData({name: 'Ghan'});
+    const { fetchData, match } = this.props;
+
+    try {
+      invariant(match.params.bonusToken && typeof match.params.bonusToken === 'string', '请传入红包口令');
+      fetchData(match.params.bonusToken);  
+    } catch (error) {
+      Toast.fail(error.message);
+    }
   }
 
   render() {
@@ -54,14 +67,14 @@ class Packet extends Component<Props, State> {
             scoll content...<br />
           </div>
         </Modal> */}
-        <div onClick={() => { this.setState({visible: true}); }}>click</div>
-        <PacketModal 
+        {/* <div onClick={() => { this.setState({visible: true}); }}>click</div> */}
+        {/* <PacketModal 
           visible={this.state.visible} 
           onClose={() => this.setState({visible: false})}
           title="hello world"
         >
           <div>this is children</div>
-        </PacketModal>
+        </PacketModal> */}
         <div className={classnames(`${PacketPrefix}-header`)}>
           <div className={`${PacketPrefix}-header-content`}>
             <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />
@@ -107,11 +120,12 @@ const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => {
 
-  function fetchPacket (params: any) {
-    return (dispatch: Dispatch) => {
-      // 
+  function fetchPacket (bonusToken: string) {
+    return async (dispatch: Dispatch) => {
+      const result = await Api.bonusAuth(bonusToken);
+      console.log('result: ', result);
     };
   }
 

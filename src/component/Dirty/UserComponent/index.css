@@ -1,0 +1,100 @@
+.animation-base-fade-enter {
+  opacity: 0;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+}
+.animation-base-fade-leave {
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+}
+.animation-base-fade-enter.animation-base-fade-enter-active {
+  animation-name: baseFadeIn;
+  animation-play-state: running;
+}
+.animation-base-fade-leave.animation-base-fade-leave-active {
+  animation-name: baseFadeOut;
+  animation-play-state: running;
+}
+@keyframes baseFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes baseFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.user-swiper {
+  width: 100vw;
+  min-height: 100vh;
+}
+.user-swiper-card {
+  width: 100%;
+  height: 57vw;
+  background-image: url('//net.huanmusic.com/cceos/web/bg_personal.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 10vw;
+}
+.user-swiper-card-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-swiper-card-content-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-swiper-card-content-item-text {
+  font-size: 14px;
+  color: white;
+  margin-top: 12px;
+}
+.user-swiper-card-content-dot {
+  box-sizing: border-box;
+  width: 6.6vw;
+  height: 6.6vw;
+  border-radius: 3.3vw;
+  line-height: 6.6vw;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  border: 1px solid white;
+}
+.user-swiper-card-content-dot-active {
+  background: white;
+  color: #4b89ef;
+}
+.user-swiper-card-content-dot-success {
+  background-image: url('//net.huanmusic.com/cceos/web/icon_finish.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.user-swiper-card-content-line {
+  position: relative;
+  top: -12px;
+  background-image: url('http://net.huanmusic.com/cceos/web/img_flow.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 16vw;
+  height: 1vw;
+  margin-left: 1.6vw;
+  margin-right: 1.6vw;
+}

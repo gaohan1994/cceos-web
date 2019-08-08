@@ -1,0 +1,107 @@
+@import "../../global.less";
+@user-bind-prefix: ct-bind-user;
+
+.@{user-bind-prefix} {
+
+  .user-shadow() {
+    box-shadow: 2px 2px 20px @primary-color;
+  }
+
+  width: 100vw;
+  min-height: 100vh;
+
+  &-swiper {
+    position: relative;
+    top: -18vw;
+  }
+
+  &-content {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6vw;
+  }
+
+  &-input {
+    height: 13vw;
+    // line-height: 13vw;
+    .user-shadow();
+  }
+
+  &-button {
+    margin-top: 6vw;
+    width: 80vw;
+    height: 10.6vw;
+    background-color: #4b89ef !important;
+
+    &-disabled-active {
+      background-color: #c3cad2 !important;
+      color: white !important;
+    }
+  }
+
+  &-card {
+    width: 100%;
+    border-radius: 4px;
+    .user-shadow();
+
+    & > .ant-card-body {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    &-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &-border-active {
+        border-bottom: 1px;
+        border-color: #e0e0e0;
+      }
+
+      &-title {
+        color: @primary-color;
+        font-size: 18px;
+      }
+
+      &-left {
+        display: flex;
+        align-items: center;
+
+        &-img {
+          width: 5.8vw;
+          height: 5.8vw;
+          background-image: url('//net.huanmusic.com/cceos/web/icon_name.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          margin-right: 12px;
+        }
+      }
+
+      &-subtitle {
+        color: #666;
+        font-size: 18px;
+      }
+    }
+  }
+
+  &-bind-icon {
+    width: 30.6vw;
+    height: 30.6vw;
+    background-image: url('//net.huanmusic.com/cceos/web/icon_binding_success.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 15.3vw;
+    .user-shadow();
+  }
+
+  &-bind-success-text {
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+  }
+}

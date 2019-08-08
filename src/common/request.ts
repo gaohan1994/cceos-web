@@ -1,5 +1,23 @@
 import Secure from './Secure';
 
+export function analysisUrl (url: string) {
+  /**
+   * [把活动的参数从query截取成json]
+   */
+  const arr: string[] = url.split('&');
+  let params: any = {};
+  if (arr.length > 0) {
+    for (let i = 0; i < arr.length; i++) {
+      let paramItem = arr[i].split("=");
+      let paramKey = paramItem[0];
+      let paramValue = paramItem[1];
+      params[paramKey] = paramValue;
+    }
+  }
+
+  return params;
+}
+
 /**
  * @param message string 打印信息
  */

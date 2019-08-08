@@ -168,6 +168,11 @@ module.exports = {
                         libraryName: 'antd-mobile',
                         style: true,
                       }),
+                      tsImportPluginFactory({
+                        libraryDirectory: 'es',
+                        libraryName: 'antd',
+                        style: true,
+                      }),
                     ]
                   }),
                 },
