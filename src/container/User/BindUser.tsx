@@ -20,22 +20,27 @@ const { Item } = List;
 
 const BindUserPrefix = 'ct-bind-user';
 
-function getItemHelper (title: string, subTitle: string) {
+export function getItemHelper (title: string, subTitle: string = '', config: any = {}) {
+  const { icon = true, titleStyle = {}, SubTitleStyle = {} } = config;
   return (
-    <Item 
-      className={title === '姓名' ? `${BindUserPrefix}-card-item-border-active` : ''}
-    >
+    <Item>
       <div className={`${BindUserPrefix}-card-item`}>
         <div className={`${BindUserPrefix}-card-item-left`}>
-          <div 
-            className={`${BindUserPrefix}-card-item-left-img`} 
-            style={{
-              backgroundImage: `url(${title === '姓名' ? '//net.huanmusic.com/cceos/web/icon_name.png' : '//net.huanmusic.com/cceos/web/icon_department.png'})`
-            }}
-          />
-          <div className={`${BindUserPrefix}-card-item-title`}>{title}</div>
+          {
+            icon === true ? (
+              <div 
+                className={`${BindUserPrefix}-card-item-left-img`} 
+                style={{
+                  backgroundImage: `url(${title === '姓名' 
+                    ? '//net.huanmusic.com/cceos/web/icon_name.png' 
+                    : '//net.huanmusic.com/cceos/web/icon_department.png'})`
+                }}
+              />
+            ) : null
+          }
+          <div className={classnames(`${BindUserPrefix}-card-item-title`)} style={titleStyle}>{title}</div>
         </div>
-        <div className={`${BindUserPrefix}-card-item-subtitle`}>{subTitle || ''}</div>
+        <div className={classnames(`${BindUserPrefix}-card-item-subtitle`)} style={SubTitleStyle}>{subTitle}</div>
       </div>
     </Item>
   );
@@ -98,17 +103,18 @@ class BindUser extends React.Component<Props, State> {
   }
 
   public onBindOver = () => {
-    const { match: { params: { params } } } = this.props;
+    const { match: { params: { params, openId } } } = this.props;
 
     if (params) {
       const analysisParams = analysisUrl(params);
-      console.log('analysisParams: ', analysisParams);
+      // console.log('analysisParams: ', analysisParams);
       if (analysisParams && analysisParams.type) {
         switch (analysisParams.type) {
           case 'bonus':
             history.push(`/packet/${analysisParams.bonusToken}`);
             return;
           default:
+            history.push(`/user/${openId}`);
             return;
         }
       }
@@ -159,11 +165,15 @@ class BindUser extends React.Component<Props, State> {
   }
 
   public render() {
-
+    const { basicInfo } = this.props;
     const SwiperProps = {
       currentPage: this.state.index + 1,
       onChangePage: this.onSwiperChangePage
     };
+    const ListData = [
+      {title: '姓名', subTitle: basicInfo.name},
+      {title: '部门', subTitle: basicInfo.department},
+    ];
 
     return (
       <div className={BindUserPrefix}>
@@ -199,8 +209,12 @@ class BindUser extends React.Component<Props, State> {
           <Swiper {...SwiperProps} >
             <div className={classnames(`${BindUserPrefix}-swiper`, `${BindUserPrefix}-content`)}> 
               <Card className={`${BindUserPrefix}-card`}>
-                {getItemHelper('姓名', this.props.basicInfo.name)}
-                {getItemHelper('部门', this.props.basicInfo.department)}
+                <List
+                  dataSource={ListData}
+                  renderItem={(item: any) => {
+                    return getItemHelper(item.title, item.subTitle);
+                  }}
+                />
               </Card>
               <Button
                 size="large"

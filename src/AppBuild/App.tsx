@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createWebNavigation, WebNavigator } from './Route';
-import { Home, Packet, Recharge, BindUser } from '../container';
+import { Home, Packet, Recharge, BindUser, User, History } from '../container';
 import { Provider } from 'react-redux';
 import { configureStore } from '../store';
 
@@ -11,10 +11,6 @@ const routes: WebNavigator[] = [
     path: '/',
     component: Home,
     exact: true,
-  },
-  {
-    path: '/packet/:bonusToken/:bonusNo',
-    component: Packet
   },
   {
     path: '/packet/:bonusToken',
@@ -31,6 +27,14 @@ const routes: WebNavigator[] = [
   {
     path: '/binduser/:openId/:params',
     component: BindUser
+  },
+  {
+    path: '/user/:openId',
+    component: User
+  },
+  {
+    path: '/history/:workNumber',
+    component: History
   },
 ];
 const MyWebNavigation = createWebNavigation({ routes });

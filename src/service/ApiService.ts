@@ -42,6 +42,23 @@ class ApiService {
       {...params}
     );
   }
+
+  public wechatPersonal = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatPersonal}`,
+      'post',
+      {...params}
+    );
+  }
+
+  public wechatRecords = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatRecords}`,
+      'post',
+      {...params}
+    );
+  }
+  
 }
 
 export default new ApiService();

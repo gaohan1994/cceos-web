@@ -4,12 +4,10 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { List } from 'antd-mobile';
 import "./packet.less";
 import classnames from 'classnames';
-import { PacketModal } from '../../component';
 import { Modal, Toast } from 'antd-mobile';
 import Api from 'src/action/Api';
 import invariant from 'invariant';
 console.log('Modal: ', Modal);
-console.log('PacketModal: ', PacketModal);
 
 const PacketPrefix = 'ct-packet';
 const ListItemClassName = `${PacketPrefix}-list-item`;
@@ -50,7 +48,6 @@ class Packet extends Component<Props, State> {
     const data = [1, 2, 3, 4];
     return (
       <div className={classnames(`${PacketPrefix}`)}>
-
         {/* <Modal
           visible={this.state.visible}
           transparent={true}
@@ -68,13 +65,6 @@ class Packet extends Component<Props, State> {
           </div>
         </Modal> */}
         {/* <div onClick={() => { this.setState({visible: true}); }}>click</div> */}
-        {/* <PacketModal 
-          visible={this.state.visible} 
-          onClose={() => this.setState({visible: false})}
-          title="hello world"
-        >
-          <div>this is children</div>
-        </PacketModal> */}
         <div className={classnames(`${PacketPrefix}-header`)}>
           <div className={`${PacketPrefix}-header-content`}>
             <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />

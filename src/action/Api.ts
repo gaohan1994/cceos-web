@@ -35,6 +35,24 @@ class Api {
       return { success: false, result: msg };
     }
   }
+
+  public wechatPersonal = async (params: { openId: string }): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.wechatPersonal(params);
+    if (code === 1) {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
+
+  public wechatRecords = async (params: { workNumber: string }): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.wechatRecords(params);
+    if (code === 1) {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
 }
 
 export default new Api();

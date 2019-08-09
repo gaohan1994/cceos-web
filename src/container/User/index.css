@@ -72,6 +72,11 @@ body {
   border-radius: 4px;
   box-shadow: 2px 2px 20px #4b89ef;
 }
+.ct-bind-user-card-pos {
+  position: relative;
+  top: -8vw;
+  padding-top: 8vw;
+}
 .ct-bind-user-card > .ant-card-body {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -81,10 +86,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.ct-bind-user-card-item-border-active {
-  border-bottom: 1px;
-  border-color: #e0e0e0;
 }
 .ct-bind-user-card-item-title {
   color: #4b89ef;
@@ -113,6 +114,7 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 15.3vw;
+  z-index: 50;
   box-shadow: 2px 2px 20px #4b89ef;
 }
 .ct-bind-user-bind-success-text {
@@ -120,4 +122,8 @@ body {
   color: #666;
   text-align: center;
   margin-top: 20px;
+}
+.ct-bind-user-personal {
+  background-image: url('//net.huanmusic.com/cceos/web/bg_personal.png') !important;
+  height: 40.6vw !important;
 }
