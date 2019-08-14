@@ -1,4 +1,47 @@
-.cceos-pay-history {
+.cceos-pay {
   width: 100vw;
   min-height: 100vh;
+}
+.cceos-pay-pay-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cceos-pay-pay-card-text {
+  color: white;
+  font-size: 16px;
+}
+.cceos-pay-pay-card-number {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.cceos-pay-pay-tip {
+  width: 100%;
+  color: #666;
+  font-size: 12px;
+  margin-top: 12px;
+  text-align: left;
+  padding-left: 4px;
+}
+.cceos-pay-result {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cceos-pay-result-image {
+  width: 30vw;
+  height: 30vw;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.cceos-pay-result-image-success {
+  background-image: url('//net.huanmusic.com/cceos/web/img_succeed.png');
+}
+.cceos-pay-result-image-fail {
+  background-image: url('//net.huanmusic.com/cceos/web/img_defeated.png');
 }

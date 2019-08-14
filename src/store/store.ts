@@ -1,16 +1,25 @@
-import { RECEIVE_BASIC_INFO, RECEIVE_WECHAT_PERSONAL_INFO, RECEIVE_WECHAT_RECORDS } from '../types/constant';
+import { 
+  RECEIVE_BASIC_INFO, 
+  RECEIVE_WECHAT_PERSONAL_INFO, 
+  RECEIVE_WECHAT_RECORDS,
+  RECEIVE_WECHAT_BALANCE,
+} from '../types/constant';
 import { Store } from './index';
 
 export type StoreType = {
   basicInfo: any;
   wechatPersonal: any;
   wechatRecords: any;
+  wechatRecordsTotal: number;
+  wechatBalance: any;
 };
 
 export const initState = {
   basicInfo: {},
   wechatPersonal: {},
   wechatRecords: {},
+  wechatRecordsTotal: 0,
+  wechatBalance: 0,
 };
 
 function store (state: any = initState, action: any): StoreType {
@@ -30,10 +39,17 @@ function store (state: any = initState, action: any): StoreType {
       };
 
     case RECEIVE_WECHAT_RECORDS:
-      const { payload: { wechatRecord } } = action;
+      const { payload: { wechatRecord, wechatRecordsTotal } } = action;
       return {
         ...state,
-        wechatRecord
+        wechatRecord,
+        wechatRecordsTotal
+      };
+    case RECEIVE_WECHAT_BALANCE:
+      const { payload: { wechatBalance } } = action;
+      return {
+        ...state,
+        wechatBalance,
       };
     default:
       return state;
@@ -52,4 +68,17 @@ export function getWechatPersonal (state: Store) {
 
 export function getWechatRecord (state: Store) {
   return state.store.wechatRecords;
+}
+
+export function getRecordsTotal (state: Store) {
+  return state.store.wechatRecordsTotal;
+}
+
+export function getFetchRecordsToken (state: Store, pageNum: number) {
+  const total = getRecordsTotal(state);
+  return pageNum * 20 < total;
+}
+
+export function getWechatBalance (state: Store) {
+  return state.store.wechatBalance;
 }

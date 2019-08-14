@@ -37,6 +37,7 @@ function getCardItem (index: number, active: boolean, onClick: any): JSX.Element
 
 export type Props = { 
   currentPage?: number;
+  renderPage?: JSX.Element;
   onChangePage?: (params: any) => void;
 } & React.HTMLProps<HTMLDivElement>;
 
@@ -58,7 +59,7 @@ export default class Swiper extends React.Component<Props> {
   }
 
   private renderCard = () => {
-    const { currentPage, className, style = {} } = this.props;
+    const { currentPage, renderPage, className, style = {} } = this.props;
     return (
       <div className={classnames(`${UserPrefix}-card`, className)} style={style}>
         {
@@ -71,7 +72,9 @@ export default class Swiper extends React.Component<Props> {
               {getCardItem(3, currentPage >= 3, this.onClick)}
             </div>
           ) : (
-            <div className={`${UserPrefix}-card-content`} />
+            <div className={`${UserPrefix}-card-content`}>
+              {renderPage ? renderPage : null}
+            </div>
           )
         }
       </div>

@@ -10,6 +10,11 @@ export interface ResponseBasic<T> {
   msg: string;
 }
 
+export interface FetchListField {
+  pageNum: number;
+  pageSize: number;
+}
+
 export type BasicInfo = {
   name: string;
   department: string;
@@ -29,4 +34,9 @@ export type WechatPersonalInfo = {
   cc: string;
   headImageUrl: string;
   basicInfo: BasicInfo;
+};
+
+export type WechatBalance = {
+  balance: number;
+  rate: string;
 };

@@ -1,7 +1,61 @@
 
-@ct-pay-history: cceos-pay-history;
+@ct-pay-prefix: cceos-pay;
 
-.@{ct-pay-history} {
+.@{ct-pay-prefix} {
   width: 100vw;
   min-height: 100vh;
+  
+  &-pay {
+
+    &-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &-text {
+        color: white;
+        font-size: 16px;
+      }
+
+      &-number {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+    }
+
+    &-tip {
+      width: 100%;
+      color: #666;
+      font-size: 12px;
+      margin-top: 12px;
+      text-align: left;
+      padding-left: 4px;
+    }
+  }
+
+  &-result {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &-image {
+      width: 30vw;
+      height: 30vw;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+
+      &-success {
+        background-image: url('//net.huanmusic.com/cceos/web/img_succeed.png');
+      }
+
+      &-fail {
+        background-image: url('//net.huanmusic.com/cceos/web/img_defeated.png');
+      }
+    }
+  }
 }

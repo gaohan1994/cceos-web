@@ -6,6 +6,8 @@ type apiMap = {
   wechatBind: string;
   wechatPersonal: string;
   wechatRecords: string;
+  wechatBalance: string;
+  wechatVoucher: string;
 };
 
 const apiMap = {
@@ -15,6 +17,8 @@ const apiMap = {
   wechatBind: 'wechat/bind',
   wechatPersonal: 'wechat/personal',
   wechatRecords: 'wechat/records',
+  wechatBalance: 'wechat/balance',
+  wechatVoucher: 'wechat/voucher',
 };
 
 export { apiMap };

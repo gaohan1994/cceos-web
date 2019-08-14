@@ -17,6 +17,7 @@ type Props = {
   fetchData: (params?: any) => any;
   match: {
     params: {
+      openId: string;
       bonusToken: string
     }
   };

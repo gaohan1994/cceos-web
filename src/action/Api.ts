@@ -53,6 +53,24 @@ class Api {
       return { success: false, result: msg };
     }
   }
+
+  public wechatBalance = async (params: any): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.wechatBalance(params);
+    if (code === 1) {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
+
+  public wechatVoucher = async (params: any): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.wechatVoucher(params);
+    if (code === 1) {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
 }
 
 export default new Api();

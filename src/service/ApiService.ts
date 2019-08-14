@@ -59,6 +59,21 @@ class ApiService {
     );
   }
   
+  public wechatBalance = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatBalance}`,
+      'post',
+      {...params}
+    );
+  }
+  
+  public wechatVoucher = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatVoucher}`,
+      'post',
+      {...params}
+    );
+  }
 }
 
 export default new ApiService();
