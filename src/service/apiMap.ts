@@ -1,7 +1,8 @@
 
 type apiMap = {
   wechatBasic: string;
-  bonusAuth: (params: string) => string;
+  bonusGrab: string;
+  bonusDetail: (bonusToken: string) => string;
   bonusBind: string;
   wechatBind: string;
   wechatPersonal: string;
@@ -12,7 +13,8 @@ type apiMap = {
 
 const apiMap = {
   wechatBasic: 'wechat/basic',
-  bonusAuth: (bonusToken: string) => `wx/bonus/auth/${bonusToken}`,
+  bonusGrab: 'wx/bonus/grab',
+  bonusDetail: (bonusToken: string) => `wx/bonus/detail/${bonusToken}`,
   bonusBind: 'wx/bonus/bind',
   wechatBind: 'wechat/bind',
   wechatPersonal: 'wechat/personal',

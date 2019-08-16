@@ -20,10 +20,19 @@ class ApiService {
     );
   }
 
-  public bonusAuth = async (params: any): Promise<ResponseBasic<any>> => {
+  public bonusGrab = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
-      `${AppConfig.CCEOS_API_ENTRY}/${API_PATH.gateway}/${apiMap.bonusAuth(params)}`,
-      'get'
+      `${AppConfig.CCEOS_API_ENTRY}/${API_PATH.gateway}/${apiMap.bonusGrab}`,
+      'post',
+      {
+        ...params
+      }
+    );
+  }
+
+  public bonusDetail = async (params: string): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CCEOS_API_ENTRY}/${API_PATH.gateway}/${apiMap.bonusDetail(params)}`
     );
   }
 

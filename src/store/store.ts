@@ -3,6 +3,7 @@ import {
   RECEIVE_WECHAT_PERSONAL_INFO, 
   RECEIVE_WECHAT_RECORDS,
   RECEIVE_WECHAT_BALANCE,
+  RECEIVE_BONUS_DETAIL,
 } from '../types/constant';
 import { Store } from './index';
 
@@ -12,6 +13,7 @@ export type StoreType = {
   wechatRecords: any;
   wechatRecordsTotal: number;
   wechatBalance: any;
+  bonusDetail: any;
 };
 
 export const initState = {
@@ -20,6 +22,7 @@ export const initState = {
   wechatRecords: {},
   wechatRecordsTotal: 0,
   wechatBalance: 0,
+  bonusDetail: {},
 };
 
 function store (state: any = initState, action: any): StoreType {
@@ -51,6 +54,16 @@ function store (state: any = initState, action: any): StoreType {
         ...state,
         wechatBalance,
       };
+    case RECEIVE_BONUS_DETAIL:
+      const { payload: { bonusDetail } } = action;
+      const detail = {
+        ...bonusDetail.bonusDetail,
+        receiverList: bonusDetail.receiverList
+      };
+      return {
+        ...state,
+        bonusDetail: detail
+      };
     default:
       return state;
   }
@@ -81,4 +94,8 @@ export function getFetchRecordsToken (state: Store, pageNum: number) {
 
 export function getWechatBalance (state: Store) {
   return state.store.wechatBalance;
+}
+
+export function getBonusDetail (state: Store) {
+  return state.store.bonusDetail;
 }

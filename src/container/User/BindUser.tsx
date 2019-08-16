@@ -111,7 +111,7 @@ class BindUser extends React.Component<Props, State> {
       if (analysisParams && analysisParams.type) {
         switch (analysisParams.type) {
           case 'bonus':
-            history.push(`/packet/${analysisParams.bonusToken}`);
+            history.push(`/packet/${openId}/${analysisParams.bonusToken}`);
             return;
           default:
             history.push(`/user/${openId}`);

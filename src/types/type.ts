@@ -5,7 +5,7 @@ export interface ApiBasic<T> {
 }
 
 export interface ResponseBasic<T> {
-  code: number;
+  code: number | string;
   data: T;
   msg: string;
 }
@@ -39,4 +39,27 @@ export type WechatPersonalInfo = {
 export type WechatBalance = {
   balance: number;
   rate: string;
+};
+
+export type BonusDetail = {
+  amount: number;
+  bonusNo: string;
+  bonusToken: string;
+  comment: string;
+  number: number;
+  recvAmount: number;
+  recvNum: number;
+  sender: string;
+  status: number;
+  type: number;
+};
+
+export type Receiver = {
+  amount: number;
+  bestLuck: number;
+  receiver: string;
+  sex: number;
+  recvTime: string;
+  openId: string;
+  userEosAccount: string;
 };

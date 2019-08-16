@@ -13,12 +13,12 @@ export function select (params: any) {
 
 const AppConfig: AppConfigType = select({
   development: {
-    CCEOS_API_ENTRY: 'http://172.30.20.100:18899',
-    WEIXIN_API_ENTRY: 'http://172.30.200.151:8084',
+    CCEOS_API_ENTRY: 'http://202.101.149.132:8090',
+    WEIXIN_API_ENTRY: 'http://202.101.149.132:8090',
   },
   production: {
-    CCEOS_API_ENTRY: 'http://172.30.20.100:18899',
-    WEIXIN_API_ENTRY: 'http://172.30.200.151:8084',
+    CCEOS_API_ENTRY: 'http://202.101.149.132:8090',
+    WEIXIN_API_ENTRY: 'http://202.101.149.132:8090',
   },
 });
 

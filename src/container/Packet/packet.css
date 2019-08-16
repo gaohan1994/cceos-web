@@ -14,8 +14,8 @@
 }
 .ct-packet img {
   display: block;
-  width: 9.3vw;
-  height: 9.3vw;
+  width: 9.3vw !important;
+  height: 9.3vw !important;
 }
 .ct-packet-header {
   display: flex;
@@ -63,7 +63,7 @@
   display: block;
 }
 .ct-packet-list-item {
-  background-color: #fffaf7;
+  background-color: #fffaf7 !important;
   padding-left: 0px;
 }
 .ct-packet-list-item-flag {

@@ -17,9 +17,22 @@ class Api {
     }
   }
 
-  public bonusAuth = async (params: any): Promise<ApiBasic<any>> => {
-    const result = await ApiService.bonusAuth(params);
-    return { success: true, result };
+  public bonusGrab = async (params: any): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.bonusGrab(params);
+    if (code === 'response.success') {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
+
+  public bonusDetail = async (params: string): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.bonusDetail(params);
+    if (code === 'response.success') {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
   }
 
   public bonusBind = async (params: any): Promise<ApiBasic<any>> => {
