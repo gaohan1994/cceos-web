@@ -17,6 +17,26 @@
   font-weight: 500;
   margin-bottom: 8px;
 }
+.cceos-pay-pay-card-history {
+  position: absolute;
+  right: 3.4vw;
+  top: 3.4vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cceos-pay-pay-card-history-img {
+  width: 4vw;
+  height: 4vw;
+  background-image: url('//net.huanmusic.com/cceos/web/icon_history.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.cceos-pay-pay-card-history-title {
+  font-size: 15px;
+  color: white;
+  margin-left: 2vw;
+}
 .cceos-pay-pay-tip {
   width: 100%;
   color: #666;
@@ -24,6 +44,9 @@
   margin-top: 12px;
   text-align: left;
   padding-left: 4px;
+}
+.cceos-pay-pay-tip > span {
+  color: #FF7332;
 }
 .cceos-pay-result {
   width: 100%;
@@ -40,8 +63,51 @@
   background-size: 100% 100%;
 }
 .cceos-pay-result-image-success {
-  background-image: url('//net.huanmusic.com/cceos/web/img_succeed.png');
+  width: 40vw;
+  background-image: url('//net.huanmusic.com/cceos/web-c/img_succeed@3x.png');
 }
 .cceos-pay-result-image-fail {
   background-image: url('//net.huanmusic.com/cceos/web/img_defeated.png');
+}
+.cceos-pay-list-item {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding-top: 5vw;
+  padding-bottom: 5vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+.cceos-pay-list-item-border {
+  border-bottom: 1px solid #e1e1e1;
+}
+.cceos-pay-list-item-dot {
+  width: 2.6vw;
+  height: 2.6vw;
+  border-radius: 1.3vw;
+  background-color: #4b89ef;
+  margin-top: 1.4vw;
+  margin-right: 3vw;
+}
+.cceos-pay-list-item-content {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.cceos-pay-list-item-title {
+  font-size: 16px;
+  color: #333333;
+}
+.cceos-pay-list-item-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-top: 1.5vw;
+}
+.cceos-pay-list-item-detail {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
 }

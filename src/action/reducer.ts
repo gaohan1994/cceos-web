@@ -16,7 +16,11 @@ export function saveWechatPersonal (dispatch: Dispatch, wechatPersonalInfo: any)
 export function saveWechatRecords (dispatch: Dispatch, wechatRecords: any) {
   return dispatch({
     type: RECEIVE_WECHAT_RECORDS,
-    payload: { wechatRecords: wechatRecords.rows, wechatRecordsTotal: wechatRecords.total }
+    payload: { 
+      wechatRecords: wechatRecords.rows, 
+      wechatRecordsTotal: wechatRecords.total, 
+      wechatRecordsPage: wechatRecords.pageNum
+    }
   });
 }
 

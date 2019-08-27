@@ -23,6 +23,26 @@
         font-weight: 500;
         margin-bottom: 8px;
       }
+      &-history {
+        position: absolute;
+        right: 3.4vw;
+        top: 3.4vw;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &-img {
+          width: 4vw;
+          height: 4vw;
+          background-image: url('//net.huanmusic.com/cceos/web/icon_history.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
+        &-title {
+          font-size: 15px;
+          color: white;
+          margin-left: 2vw;
+        }
+      }
     }
 
     &-tip {
@@ -32,6 +52,10 @@
       margin-top: 12px;
       text-align: left;
       padding-left: 4px;
+
+      & > span {
+        color: #FF7332;
+      }
     }
   }
 
@@ -50,11 +74,58 @@
       background-size: 100% 100%;
 
       &-success {
-        background-image: url('//net.huanmusic.com/cceos/web/img_succeed.png');
+        width: 40vw;
+        background-image: url('//net.huanmusic.com/cceos/web-c/img_succeed@3x.png');
       }
 
       &-fail {
         background-image: url('//net.huanmusic.com/cceos/web/img_defeated.png');
+      }
+    }
+  }
+
+  &-list {
+    &-item {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      background-color: white;
+
+      padding-top: 5vw;
+      padding-bottom: 5vw;
+      padding-left: 3vw;
+      padding-right: 3vw;
+      &-border {
+        border-bottom: 1px solid #e1e1e1;
+      }
+      &-dot {
+        width: 2.6vw;
+        height: 2.6vw;
+        border-radius: 1.3vw;
+        background-color: #4b89ef;
+        margin-top: 1.4vw;
+        margin-right: 3vw;
+      }
+      &-content {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      &-title {
+        font-size: 16px;
+        color: #333333;
+      }
+      &-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-top: 1.5vw;
+      }
+      &-detail {
+        font-size: 20px;
+        color: #333;
+        font-weight: bold;
       }
     }
   }

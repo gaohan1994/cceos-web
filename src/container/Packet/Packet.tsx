@@ -4,14 +4,13 @@ import { Dispatch, bindActionCreators } from 'redux';
 import "./packet.less";
 import classnames from 'classnames';
 import { Spin } from 'antd';
-import { Modal, Toast, List } from 'antd-mobile';
+import { Toast, List } from 'antd-mobile';
 import Api from 'src/action/Api';
 import invariant from 'invariant';
 import { saveBonusDetail } from '../../action/reducer';
 import { Store } from '../../store/index';
 import { getBonusDetail } from '../../store/store';
 import { BonusDetail, Receiver } from '../../types/type';
-console.log('Modal: ', Modal);
 
 export function checkUserInReceiverList (user: Receiver | string, receiverList: Receiver[]): number {
   if (typeof user === 'string') {
@@ -68,17 +67,18 @@ class Packet extends Component<Props, State> {
      */
     try {
       this.changeLoading(true);
-      invariant(match.params.bonusToken && typeof match.params.bonusToken === 'string', '请传入红包口令');
+      invariant(match.params.bonusToken && typeof match.params.bonusToken === 'string', '请输入红包口令');
       const { bonusDetail, receiverList } = await fetchData(match.params.bonusToken);
-      console.log('bonusDetail: ', bonusDetail);
-      invariant(bonusDetail.status !== 1, '红包已领完');
+
       invariant(bonusDetail.status !== 2, '红包已过期');
-      invariant(match.params.bonusToken && match.params.openId, '请传入红包口令和微信id');
+      invariant(match.params.bonusToken && match.params.openId, '请输入红包口令和微信id');
 
       if (checkUserInReceiverList(match.params.openId, receiverList) === -1) {
         /**
+         * [没有领取过且红包是领完状态的再显示红包已领完]
          * [说明没有抢过红包则抢红包，抢完之后再次请求详情接口]
          */
+        invariant(bonusDetail.status !== 1, '红包已领完');
         await packetGrab(match.params.bonusToken, match.params.openId);
         await fetchData(match.params.bonusToken);
         this.changeLoading(false);
@@ -100,27 +100,12 @@ class Packet extends Component<Props, State> {
     return (
       <Spin size="large" spinning={this.state.loading}>
         <div className={classnames(`${PacketPrefix}`)}>
-          
-          {/* <Modal
-            visible={this.state.visible}
-            transparent={true}
-            maskClosable={true}
-            title="Title"
-            onClose={() => this.setState({visible: false})}
-          >
-            <div style={{ height: 100, overflow: 'scroll' }}>
-              scoll content...<br />
-              scoll content...<br />
-              scoll content...<br />
-              scoll content...<br />
-              scoll content...<br />
-              scoll content...<br />
-            </div>
-          </Modal> */}
-          {/* <div onClick={() => { this.setState({visible: true}); }}>click</div> */}
           <div className={classnames(`${PacketPrefix}-header`)}>
             <div className={`${PacketPrefix}-header-content`}>
-              <img className={`${PacketPrefix}-header-content-img`} src="//net.huanmusic.com/cceos/pic_man.png" />
+              <img 
+                className={`${PacketPrefix}-header-content-img`}
+                src={bonusDetail.sex === 0 ? "//net.huanmusic.com/cceos/pic_man.png" : "//net.huanmusic.com/cceos/pic_women.png"} 
+              />
               <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-title`)} >{bonusDetail.sender}</span>
             </div>
             <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-sub-title`)} >{bonusDetail.comment}</span>
@@ -132,7 +117,7 @@ class Packet extends Component<Props, State> {
             )}
           </div>
           <List className={classnames(`${PacketPrefix}-list`)}>
-            {bonusDetail && bonusDetail.receiverList && bonusDetail.receiverList.length > 0 && (<span className={`${ListItemClassName}-flag`} />)}
+            <div className={`${PacketPrefix}-list-item-flag`}>已领取 {bonusDetail.recvNum} / {bonusDetail.number} 个，共 {bonusDetail.amount} CC</div>
             {
               bonusDetail && bonusDetail.receiverList && bonusDetail.receiverList.map((item: Receiver, index: number) => {
                 return (
@@ -142,9 +127,9 @@ class Packet extends Component<Props, State> {
                   >
                     <div className={`${ListItemClassName}-line`}>
                       <div className={`${ListItemClassName}-title`} >
-                        <img 
+                        <img
                           className={`${ListItemClassName}-img`} 
-                          src={item.sex === 0 ? "//net.huanmusic.com/cceos/pic_man.png" : "//net.huanmusic.com/cceos/pic_woman.png"} 
+                          src={item.sex === 0 ? "//net.huanmusic.com/cceos/pic_man.png" : "//net.huanmusic.com/cceos/pic_women.png"} 
                         />
                         <div className={`${ListItemClassName}-content`}>
                           <span className={classnames(`${PacketPrefix}-title`, `${ListItemClassName}-name`)} >{item.receiver}</span>
@@ -178,7 +163,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => {
   function fetchPacket (bonusToken: string) {
     return async (dispatch: Dispatch): Promise<any> => {
       try {
-        invariant(bonusToken, '请传入红包口令');
+        invariant(bonusToken, '请输入红包口令');
         const { success, result } = await Api.bonusDetail(bonusToken);
         invariant(success, result || ' ');
         saveBonusDetail(dispatch, result);
@@ -192,7 +177,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => {
   function packetGrab (bonusToken: string, openId: string) {
     return async (dispatch: Dispatch): Promise<any> => {
       try {
-        invariant(bonusToken && openId, '请传入红包口令和微信openid');
+        invariant(bonusToken && openId, '请输入红包口令和微信openid');
         const { success, result } = await Api.bonusGrab({bonusToken, openid: openId});  
         invariant(success, result || ' ');
         return result;

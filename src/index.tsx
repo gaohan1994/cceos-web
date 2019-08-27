@@ -4,13 +4,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { App } from './AppBuild';
 import "./global.less";
 
-function ReactRenderCallback (): void {
-  console.log('ReactRenderCallback done');
-}
-
 ReactDOM.render(
   <App />,
-  document.getElementById('root'),
-  ReactRenderCallback
+  document.getElementById('root')
 );
 registerServiceWorker();

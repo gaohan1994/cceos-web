@@ -8,11 +8,11 @@ class App extends React.Component {
     return (
       <div className="App">
         
-        <div onClick={() => { history.push('/packet'); }}>
+        <div onClick={() => { history.push('/packet/1/1'); }}>
           to packet
         </div>
 
-        <div onClick={() => { history.push('/recharge'); }}>
+        <div onClick={() => { history.push('/recharge/1'); }}>
           to recharge
         </div>
       </div>

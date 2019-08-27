@@ -13,28 +13,34 @@ const routes: WebNavigator[] = [
     exact: true,
   },
   {
-    path: '/packet/:openId/:bonusToken',
-    component: Packet
+    path: `/packet/:openId/:bonusToken`,
+    component: Packet,
+    exact: true,
   },
   {
-    path: '/recharge/:openId',
-    component: Recharge
+    path: `/recharge/:openId`,
+    component: Recharge,
+    exact: true,
   },
   {
-    path: '/binduser/:openId/:params',
-    component: BindUser
+    path: `/binduser/:openId/:params`,
+    component: BindUser,
+    exact: true,
   },
   {
-    path: '/user/:openId',
-    component: User
+    path: `/user/:openId`,
+    component: User,
+    exact: true,
   },
   {
-    path: '/history/:openId/:workNumber',
-    component: History
+    path: `/history/:openId`,
+    component: History,
+    exact: true,
   },
   {
-    path: '/result/:params',
+    path: `/result/:params`,
     component: Result,
+    exact: true,
   },
 ];
 const MyWebNavigation = createWebNavigation({ routes });

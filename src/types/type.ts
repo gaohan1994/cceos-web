@@ -52,6 +52,7 @@ export type BonusDetail = {
   sender: string;
   status: number;
   type: number;
+  sex: number;
 };
 
 export type Receiver = {

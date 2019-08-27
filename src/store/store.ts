@@ -10,7 +10,7 @@ import { Store } from './index';
 export type StoreType = {
   basicInfo: any;
   wechatPersonal: any;
-  wechatRecords: any;
+  wechatRecords: any[];
   wechatRecordsTotal: number;
   wechatBalance: any;
   bonusDetail: any;
@@ -19,13 +19,13 @@ export type StoreType = {
 export const initState = {
   basicInfo: {},
   wechatPersonal: {},
-  wechatRecords: {},
+  wechatRecords: [],
   wechatRecordsTotal: 0,
   wechatBalance: 0,
   bonusDetail: {},
 };
 
-function store (state: any = initState, action: any): StoreType {
+function store (state: StoreType = initState, action: any): StoreType {
   switch (action.type) {
     case RECEIVE_BASIC_INFO:
       const { payload } = action;
@@ -42,12 +42,21 @@ function store (state: any = initState, action: any): StoreType {
       };
 
     case RECEIVE_WECHAT_RECORDS:
-      const { payload: { wechatRecord, wechatRecordsTotal } } = action;
-      return {
-        ...state,
-        wechatRecord,
-        wechatRecordsTotal
-      };
+      const { payload: { wechatRecords, wechatRecordsTotal, wechatRecordsPage } } = action;
+
+      if (wechatRecordsPage === 1) {
+        return {
+          ...state,
+          wechatRecords,
+          wechatRecordsTotal
+        };
+      } else {
+        return {
+          ...state,
+          wechatRecords: state.wechatRecords.concat(wechatRecords),
+          wechatRecordsTotal
+        };
+      }
     case RECEIVE_WECHAT_BALANCE:
       const { payload: { wechatBalance } } = action;
       return {

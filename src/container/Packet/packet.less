@@ -73,9 +73,9 @@
   }
 
   &-list {
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-top: 40px;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    margin-top: 10vw;
 
     & > .am-list-body::before {
       height: 0px !important;
@@ -86,15 +86,18 @@
     }
     &-item {
       background-color: @packet-background-color !important;
-      padding-left: 0px;
-
+      padding-left: 0px !important;
+      & > .am-list-line {
+        padding-right: 0px !important;
+      }
       &-flag {
-        width: 77vw;
-        height: 5vw;
-        background-image: url("http://net.huanmusic.com/cceos/line_shouqi@3x.png");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        background-color: @packet-background-color;
+        width: 100%;
+        font-size: 13px;
+        color: #333;
+        background: transparent;
+        background-color: @packet-background-color !important;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e1e1e1;
       }
 
       & > .am-list-line {

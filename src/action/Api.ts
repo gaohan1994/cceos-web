@@ -58,7 +58,7 @@ class Api {
     }
   }
 
-  public wechatRecords = async (params: { workNumber: string }): Promise<ApiBasic<any>> => {
+  public wechatRecords = async (params: { openId: string }): Promise<ApiBasic<any>> => {
     const { code, data, msg } = await ApiService.wechatRecords(params);
     if (code === 1) {
       return { success: true, result: data };

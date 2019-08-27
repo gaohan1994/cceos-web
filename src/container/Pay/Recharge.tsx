@@ -12,6 +12,9 @@ import classnames from 'classnames';
 import { Input, Button } from 'antd';
 import { mergeProps } from '../../AppBuild/config';
 import { WechatBalance } from '../../types/type';
+import "../User/index.less";
+import "./index.less"; 
+import history from '../../history';
 
 const payPrefix = 'cceos-pay';
 const BindUserPrefix = 'ct-bind-user';
@@ -37,11 +40,8 @@ class Recharge extends React.Component<Props, State> {
     loading: false,
   };
 
-  private inputRef: any;
-
   componentDidMount() {
     this.props.fetchBalance();
-    this.inputRef.focus();
   }
 
   public changeValue = ({ target: { value } }: any) => {
@@ -53,7 +53,7 @@ class Recharge extends React.Component<Props, State> {
       this.setState({loading: true});
       const value = Number(this.state.value.replace(/[^0-9]/g, ""));
 
-      invariant(typeof value === 'number' && value > 0, '请传入要充值的金额');
+      invariant(typeof value === 'number' && value > 0, '请输入要充值的金额');
       const result = await this.props.recharge({count: value});
       this.setState({loading: false});
 
@@ -66,12 +66,23 @@ class Recharge extends React.Component<Props, State> {
     }
   }
 
+  public navigateHistory = () => {
+    history.push(`/history/${this.props.match.params.openId}`);
+  }
+
   public render() {
     return (
       <div className={`${payPrefix}`}>
         <Swiper
           renderPage={(
             <div className={`${payPrefix}-pay-card`}>
+              <div 
+                className={`${payPrefix}-pay-card-history`}
+                onClick={this.navigateHistory}
+              >
+                <span className={`${payPrefix}-pay-card-history-img`}/>
+                <div className={`${payPrefix}-pay-card-history-title`}>历史记录</div>
+              </div>
               <div className={classnames(`${payPrefix}-pay-card-text`, `${payPrefix}-pay-card-number`)} >
                 {this.props.wechatBalance.balance}
               </div>
@@ -80,16 +91,25 @@ class Recharge extends React.Component<Props, State> {
           )}
         >
           <div className={classnames(`${BindUserPrefix}-swiper`, `${BindUserPrefix}-content`)}>
-            <Input
-              autoFocus={true}
-              ref={(inputRef => this.inputRef = inputRef)}
-              className={`${BindUserPrefix}-input`}
-              value={this.state.value}
-              onChange={this.changeValue}
-              placeholder="请输入充值金额"
-              size="large"
-            />
-            <div className={`${payPrefix}-pay-tip`}>注：充值{this.props.wechatBalance.rate || 0}元可换购一张雨滴劵</div>
+            <div className={`${BindUserPrefix}-input`}>
+              <Input
+                className={`${BindUserPrefix}-input-content`}
+                value={this.state.value}
+                onChange={this.changeValue}
+                placeholder="请输入充值数量"
+                size="large"
+              />  
+            </div>
+            <div className={`${payPrefix}-pay-tip`}>
+              注：充值
+              <span>{this.props.wechatBalance.rate || 0}</span>
+              元可换购一张雨滴劵
+            </div>
+            <div className={`${payPrefix}-pay-tip`}>
+              共计人民币
+              <span>{Number(this.state.value) * Number(this.props.wechatBalance.rate || 0)}</span>
+              元
+            </div>
 
             <Button
               loading={this.state.loading}
@@ -120,7 +140,7 @@ const mapDispatch = (dispatch: Dispatch, ownProps: Props) => {
     return async () => {
       try {
         const { match: { params: { openId } } } = ownProps;
-        invariant(openId, '请传入openid');
+        invariant(openId, '请输入openid');
 
         const { success, result } = await Api.wechatBalance({ openId });
         invariant(success, result || ' ');
@@ -136,7 +156,7 @@ const mapDispatch = (dispatch: Dispatch, ownProps: Props) => {
       
       try {
         const { match: { params: { openId } } } = ownProps;
-        invariant(openId && params.count, '请传入openId和要充值的金额');
+        invariant(openId && params.count, '请输入openId和要充值的金额');
         
         const payload = { count: params.count, openId, };
         const { success, result } = await Api.wechatVoucher(payload);
