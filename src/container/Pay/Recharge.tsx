@@ -101,16 +101,8 @@ class Recharge extends React.Component<Props, State> {
               />  
             </div>
             <div className={`${payPrefix}-pay-tip`}>
-              注：充值
-              <span>{this.props.wechatBalance.rate || 0}</span>
-              元可换购一张雨滴劵
+              注：充值{this.props.wechatBalance.rate || 0}元可换购一张雨滴劵
             </div>
-            <div className={`${payPrefix}-pay-tip`}>
-              共计人民币
-              <span>{Number(this.state.value) * Number(this.props.wechatBalance.rate || 0)}</span>
-              元
-            </div>
-
             <Button
               loading={this.state.loading}
               size="large"
@@ -124,6 +116,14 @@ class Recharge extends React.Component<Props, State> {
             >
               确认金额无误，请充值
             </Button>
+
+            <div 
+              className={classnames(`${payPrefix}-pay-tip`, `${payPrefix}-pay-tip-middle`)}
+            >
+              {`当前充值所需金额：`}
+              <span>{Number(this.state.value) * Number(this.props.wechatBalance.rate || 0)}</span> 
+              {` 元`}
+            </div>
           </div>
         </Swiper>
       </div>
@@ -165,6 +165,7 @@ const mapDispatch = (dispatch: Dispatch, ownProps: Props) => {
         return result;
       } catch (error) {
         Toast.fail(error.message);
+        return { success: false, result: error.message};
       }
     };
   }

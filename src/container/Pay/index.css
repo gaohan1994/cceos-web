@@ -45,8 +45,15 @@
   text-align: left;
   padding-left: 4px;
 }
+.cceos-pay-pay-tip-middle {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #4b89ef;
+}
 .cceos-pay-pay-tip > span {
-  color: #FF7332;
+  line-height: 22px;
+  font-size: 20px;
 }
 .cceos-pay-result {
   width: 100%;

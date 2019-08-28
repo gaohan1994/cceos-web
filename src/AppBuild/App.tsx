@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createWebNavigation, WebNavigator } from './Route';
-import { Home, Packet, Recharge, BindUser, User, History, Result } from '../container';
+import { Home, Packet, Recharge, BindUser, User, History, Result, BindResult } from '../container';
 import { Provider } from 'react-redux';
 import { configureStore } from '../store';
 
@@ -10,6 +10,11 @@ const routes: WebNavigator[] = [
   {
     path: '/',
     component: Home,
+    exact: true,
+  },
+  {
+    path: '/bindresult/:openId',
+    component: BindResult,
     exact: true,
   },
   {
