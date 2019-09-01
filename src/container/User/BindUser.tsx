@@ -118,6 +118,7 @@ class BindUser extends React.Component<Props, State> {
             return;
         }
       }
+      history.push(`/user/${openId}`);
     }
   }
 

@@ -95,7 +95,7 @@ body {
 }
 .ct-bind-user-card-item-title {
   color: #4b89ef;
-  font-size: 18px;
+  font-size: 15px;
 }
 .ct-bind-user-card-item-left {
   display: flex;
@@ -111,7 +111,7 @@ body {
 }
 .ct-bind-user-card-item-subtitle {
   color: #666;
-  font-size: 18px;
+  font-size: 13px;
 }
 .ct-bind-user-bind-icon {
   width: 30.6vw;
@@ -124,7 +124,7 @@ body {
   box-shadow: 0px 4px 18px #4b89ef;
 }
 .ct-bind-user-bind-success-text {
-  font-size: 20px;
+  font-size: 16px;
   color: #666;
   text-align: center;
   margin-top: 20px;

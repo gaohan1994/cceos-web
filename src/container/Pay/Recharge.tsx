@@ -44,8 +44,23 @@ class Recharge extends React.Component<Props, State> {
     this.props.fetchBalance();
   }
 
+  public checkValue = (value: string): string => {
+    // value.replace(/[^0-9]/g
+    /**
+     * [1.去掉所有非数字项]
+     */
+    const valueNumber = Number(value.replace(/[^0-9]/g, ""));
+    if (valueNumber > 1000) {
+      return '1000';
+    }
+    if (valueNumber < 0) {
+      return '0';
+    }
+    return `${valueNumber}`;
+  }
+
   public changeValue = ({ target: { value } }: any) => {
-    this.setState({ value: value.replace(/[^0-9]/g, "") });
+    this.setState({ value: this.checkValue(value) });
   }
 
   public onPayClickHandle = async () => {
@@ -84,7 +99,7 @@ class Recharge extends React.Component<Props, State> {
                 <div className={`${payPrefix}-pay-card-history-title`}>历史记录</div>
               </div>
               <div className={classnames(`${payPrefix}-pay-card-text`, `${payPrefix}-pay-card-number`)} >
-                {this.props.wechatBalance.balance}
+                {this.props.wechatBalance.balance || 0}
               </div>
               <div className={`${payPrefix}-pay-card-text`} >当前账户雨滴券</div>
             </div>
@@ -103,6 +118,9 @@ class Recharge extends React.Component<Props, State> {
             <div className={`${payPrefix}-pay-tip`}>
               注：充值{this.props.wechatBalance.rate || 0}元可换购一张雨滴劵
             </div>
+            <div className={`${payPrefix}-pay-tip`}>
+              注：每月最多充值1000张雨滴券
+            </div>
             <Button
               loading={this.state.loading}
               size="large"
@@ -117,9 +135,7 @@ class Recharge extends React.Component<Props, State> {
               确认金额无误，请充值
             </Button>
 
-            <div 
-              className={classnames(`${payPrefix}-pay-tip`, `${payPrefix}-pay-tip-middle`)}
-            >
+            <div className={classnames(`${payPrefix}-pay-tip`, `${payPrefix}-pay-tip-middle`)}>
               {`当前充值所需金额：`}
               <span>{Number(this.state.value) * Number(this.props.wechatBalance.rate || 0)}</span> 
               {` 元`}

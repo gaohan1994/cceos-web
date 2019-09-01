@@ -17,8 +17,8 @@ const AppConfig: AppConfigType = select({
     WEIXIN_API_ENTRY: 'http://202.101.149.132:8090',
   },
   production: {
-    CCEOS_API_ENTRY: 'http://202.101.149.132:8090',
-    WEIXIN_API_ENTRY: 'http://202.101.149.132:8090',
+    CCEOS_API_ENTRY: 'http://202.101.149.130:18282',
+    WEIXIN_API_ENTRY: 'http://202.101.149.130:18282',
   },
 });
 

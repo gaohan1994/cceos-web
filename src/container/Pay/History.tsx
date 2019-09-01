@@ -41,14 +41,15 @@ class History extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchWechatRecords({pageNum: pageNum++, pageSize: pageSize++});
+    pageNum = 1;
+    this.fetchData();
   }
 
   public fetchData = async () => {
     try {
       const token = getFetchRecordsToken(this.props.state, pageNum);
       if (token === true || pageNum === 1) {
-        await this.props.fetchWechatRecords({pageNum: pageNum++, pageSize: pageSize++});  
+        await this.props.fetchWechatRecords({pageNum: pageNum++, pageSize: pageSize});  
       }
     } catch (error) {
       Toast.fail(error.message);
@@ -80,7 +81,7 @@ class History extends React.Component<Props, State> {
           }}
         >
           {
-            wechatRecord && wechatRecord.length > 0 && wechatRecord.map((rowData: any, index: number) => {
+            wechatRecord && wechatRecord.length > 0 ? wechatRecord.map((rowData: any, index: number) => {
               return (
                 <div 
                   key={`${index}`}
@@ -96,7 +97,9 @@ class History extends React.Component<Props, State> {
                   </div>
                 </div>
               );
-            })
+            }) : (
+              <div className={`${historyPrefix}-list-null`}>暂无充值记录</div>
+            )
           }
         </PullToRefresh>
       </div>

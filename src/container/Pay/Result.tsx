@@ -40,7 +40,7 @@ class Result extends React.Component<Props> {
             })} 
           />
           <div>{urlParam.message}</div>
-          <div>在雨滴App内可以用雨滴券兑换CC</div>
+          {urlParam.result === '1' && <div>在雨滴App内可以用雨滴券兑换CC</div>}
         </div>
       </div>
     );
