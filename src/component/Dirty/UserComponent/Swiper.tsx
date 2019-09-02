@@ -7,7 +7,7 @@ const UserPrefix = 'user-swiper';
 function getCardItemText (index: number) {
   switch (index) {
     case 1:
-      return <div className={`${UserPrefix}-card-content-item-text`}>填写工号</div>;
+      return <div className={`${UserPrefix}-card-content-item-text`}>填写手机号</div>;
     case 2:
       return <div className={`${UserPrefix}-card-content-item-text`}>确认资料</div>;
     case 3:

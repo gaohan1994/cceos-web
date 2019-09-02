@@ -4,6 +4,15 @@ import { AppStore } from '../AppBuild/App';
 import { RECEIVE_BASIC_INFO } from '../types/constant';
 class Api {
 
+  public wechatValid = async (params: any): Promise<ApiBasic<any>> => {
+    const { code, data, msg } = await ApiService.wechatValid(params);
+    if (code === 1) {
+      return { success: true, result: data };
+    } else {
+      return { success: false, result: msg };
+    }
+  }
+
   public wechatBasic = async (params: any): Promise<ApiBasic<any>> => {
     const { code, data, msg } = await ApiService.wechatBasic(params);
     if (code === 1) {

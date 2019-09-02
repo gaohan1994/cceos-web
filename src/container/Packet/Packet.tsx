@@ -106,7 +106,7 @@ class Packet extends Component<Props, State> {
                 className={`${PacketPrefix}-header-content-img`}
                 src={bonusDetail.sex === 0 ? "//net.huanmusic.com/cceos/pic_man.png" : "//net.huanmusic.com/cceos/pic_women.png"} 
               />
-              <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-title`)} >{bonusDetail.sender}</span>
+              <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-title`)} >{bonusDetail.sender}的红包</span>
             </div>
             <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-sub-title`)} >{bonusDetail.comment}</span>
             {/* 如果当前用户有抢到红包则显示当前用户抢到的钱，如果没有抢到红包则不显示金额 */}
@@ -117,7 +117,9 @@ class Packet extends Component<Props, State> {
             )}
           </div>
           <List className={classnames(`${PacketPrefix}-list`)}>
-            <div className={`${PacketPrefix}-list-item-flag`}>已领取 {bonusDetail.recvNum} / {bonusDetail.number} 个，共 {bonusDetail.amount} CC</div>
+            <div className={`${PacketPrefix}-list-item-flag`}>
+              已领取 {bonusDetail.recvNum} / {bonusDetail.number} 个{bonusDetail.openId === this.props.match.params.openId && `，共 ${bonusDetail.amount} CC`}
+            </div>
             {
               bonusDetail && bonusDetail.receiverList && bonusDetail.receiverList.map((item: Receiver, index: number) => {
                 return (

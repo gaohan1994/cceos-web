@@ -106,15 +106,13 @@ class Recharge extends React.Component<Props, State> {
           )}
         >
           <div className={classnames(`${BindUserPrefix}-swiper`, `${BindUserPrefix}-content`)}>
-            <div className={`${BindUserPrefix}-input`}>
-              <Input
-                className={`${BindUserPrefix}-input-content`}
-                value={this.state.value}
-                onChange={this.changeValue}
-                placeholder="请输入充值数量"
-                size="large"
-              />  
-            </div>
+            <Input
+              className={`${BindUserPrefix}-input`}
+              value={this.state.value}
+              onChange={this.changeValue}
+              placeholder="请输入充值数量"
+              size="large"
+            /> 
             <div className={`${payPrefix}-pay-tip`}>
               注：充值{this.props.wechatBalance.rate || 0}元可换购一张雨滴劵
             </div>

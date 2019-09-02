@@ -20,13 +20,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6vw;
+    padding: 8vw 6vw;
   }
 
   &-input {
-    height: 50px;
-    width: 100%;
+    width: 100% !important;
+    border: 0px !important;
     .user-shadow();
+
+    &-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      & > .ant-input {
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+      }
+      & > .ant-btn {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+      }
+    }
   }
 
   &-input-content {
@@ -44,6 +60,7 @@
     &-disabled-active {
       background-color: #c3cad2 !important;
       color: white !important;
+      border: 0px !important;
     }
   }
 

@@ -10,6 +10,14 @@ const API_PATH = {
 
 class ApiService {
 
+  public wechatValid = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatValid}`,
+      'post',
+      {...params}
+    );
+  }
+
   public wechatBasic = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatBasic}`,
