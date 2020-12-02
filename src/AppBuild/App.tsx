@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createWebNavigation, WebNavigator } from './Route';
-import { Home, Packet, Recharge, BindUser, User, History, Result, BindResult } from '../container';
+import { Home, Packet, Recharge, BindUser, User, History, Result, BindResult, Chat } from '../container';
 import { Provider } from 'react-redux';
 import { configureStore } from '../store';
 
@@ -45,6 +45,11 @@ const routes: WebNavigator[] = [
   {
     path: `/result/:params`,
     component: Result,
+    exact: true,
+  },
+  {
+    path: `/chat`,
+    component: Chat,
     exact: true,
   },
 ];

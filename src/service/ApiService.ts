@@ -8,13 +8,26 @@ const API_PATH = {
   gateway: 'cceos-gateway',
 };
 
+export const jsonToQueryString = (json: any) => {
+  const field = Object.keys(json)
+    .map(function (key: any) {
+      if (json[key] !== undefined) {
+        return key + '=' + json[key];
+      }
+      return '';
+    })
+    .filter((item) => !!item)
+    .join('&');
+  return field.length > 0 ? `?${field}` : '';
+};
+
 class ApiService {
 
   public wechatValid = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatValid}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
 
@@ -48,7 +61,7 @@ class ApiService {
     return request(
       `${AppConfig.CCEOS_API_ENTRY}/${API_PATH.gateway}/${apiMap.bonusBind}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
 
@@ -56,7 +69,7 @@ class ApiService {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatBind}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
 
@@ -64,7 +77,7 @@ class ApiService {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatPersonal}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
 
@@ -72,23 +85,74 @@ class ApiService {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatRecords}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
-  
+
   public wechatBalance = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatBalance}`,
       'post',
-      {...params}
+      { ...params }
     );
   }
-  
+
   public wechatVoucher = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.WEIXIN_API_ENTRY}/${API_PATH.third}/${apiMap.wechatVoucher}`,
       'post',
-      {...params}
+      { ...params }
+    );
+  }
+
+  public chatLogHistory = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/chatLog/customer/history${jsonToQueryString(params)}`,
+      'get',
+    );
+  }
+
+  public chatToken = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/oauth/customer/token`,
+      'post',
+      { ...params }
+    );
+  }
+
+  public chatImgUpload = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/chatLog/img`,
+      'post',
+      { ...params }
+    );
+  }
+
+  public questionCategory = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/category${jsonToQueryString(params)}`,
+      'get',
+    );
+  }
+
+  public questionQuestion = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/question${jsonToQueryString(params)}`,
+      'get',
+    );
+  }
+
+  public questionAnswer = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/answer${jsonToQueryString(params)}`,
+      'get',
+    );
+  }
+
+  public agentIdle = async (params: any): Promise<ResponseBasic<any>> => {
+    return request(
+      `${AppConfig.CHART_API_ENTRY}/project-gateway/api/agent/idle${jsonToQueryString(params)}`,
+      'get',
     );
   }
 }

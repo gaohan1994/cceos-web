@@ -63,5 +63,5 @@ export type Receiver = {
   sex: number;
   recvTime: string;
   openId: string;
-  userEosAccount: string;
+  chainAccount: string;
 };

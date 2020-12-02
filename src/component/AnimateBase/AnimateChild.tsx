@@ -45,6 +45,7 @@ export default class AnimateChild extends React.Component<AnimateChildProps> {
   public componentWillLeave = (callback: any): void => {
     // console.log('componentWillLeave: ');
 
+    // @ts-ignore
     if (AnimateUtil.isLeaveSupported) {
       this.transition('leave', callback);
     } else {

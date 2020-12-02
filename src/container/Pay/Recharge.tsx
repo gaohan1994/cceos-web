@@ -50,8 +50,8 @@ class Recharge extends React.Component<Props, State> {
      * [1.去掉所有非数字项]
      */
     const valueNumber = Number(value.replace(/[^0-9]/g, ""));
-    if (valueNumber > 1000) {
-      return '1000';
+    if (valueNumber > 50000) {
+      return '50000';
     }
     if (valueNumber < 0) {
       return '0';
@@ -116,9 +116,9 @@ class Recharge extends React.Component<Props, State> {
             <div className={`${payPrefix}-pay-tip`}>
               注：充值{this.props.wechatBalance.rate || 0}元可换购一张雨滴劵
             </div>
-            <div className={`${payPrefix}-pay-tip`}>
-              注：每月最多充值1000张雨滴券
-            </div>
+            {/* <div className={`${payPrefix}-pay-tip`}>
+              注：每月最多充值50K张雨滴券
+            </div> */}
             <Button
               loading={this.state.loading}
               size="large"

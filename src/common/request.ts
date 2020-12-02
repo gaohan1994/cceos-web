@@ -1,6 +1,7 @@
 import Secure from './Secure';
+import AppConfig from '../AppBuild/config';
 
-export function analysisUrl (url: string) {
+export function analysisUrl(url: string) {
   /**
    * [把活动的参数从query截取成json]
    */
@@ -38,6 +39,18 @@ const ConsoleUtil = (message: any, title?: string): void => {
 const defaultErrorCallback = async (error: any) => {
   ConsoleUtil(error, '[ERROR]');
 };
+
+export const withTimeout = (time: number) => (promise: any, option?: any) =>
+  Promise.race([
+    promise,
+    new Promise((resolve, reject) =>
+      setTimeout((_: any) => reject(
+        new Error('请求超时！请检查网络连接！')
+      ), time)
+    )
+  ]);
+
+export const detaultTimeoutFetch = withTimeout(AppConfig.DEFAULT_FETCH_TIMEOUT);
 
 export const request = async (
   url: string,
@@ -83,26 +96,40 @@ export const request = async (
   if (options.method) {
     if (options.method.toUpperCase() !== 'GET') {
       options.body = params
-      ? JSON.stringify(Secure.encryption(params)) 
-      : '';
+        ? JSON.stringify(Secure.encryption(params))
+        : '';
+    }
+  }
+
+  if (url !== '/project-gateway/oauth/agent/token' && url.indexOf('project-gateway')) {
+    const userInfoStr = localStorage.getItem(AppConfig.CHAT_USERINFO_KEY);
+    if (userInfoStr) {
+      const userInfo: any = JSON.parse(userInfoStr);
+      if (userInfo && userInfo.token) {
+        options.headers = {
+          ...options.headers,
+          Authorization: userInfo.token || ''
+        };
+      }
     }
   }
 
   try {
-    return fetch(url, options)
-    .then((response: Response) => response.json())
-    .then((responseJson: any): any => {
-      ConsoleUtil(responseJson, '响应报文');
-      if (callback) {
-        callback(responseJson);
-      }
-      return responseJson;
-    })
-    .catch((e: any) => {
-      errorCallback(e);
-      return false;
-    });
+    return detaultTimeoutFetch(fetch(url, options), options)
+      .then((response: Response) => response.json())
+      .then((responseJson: any): any => {
+        ConsoleUtil(responseJson, '响应报文');
+        if (callback) {
+          callback(responseJson);
+        }
+        return responseJson;
+      })
+      .catch((e: any) => {
+        errorCallback(e);
+        return { code: 'timeout', msg: '网络异常啦！请请检查网络连接！' };
+      });
   } catch (error) {
     errorCallback(error);
+    return { code: 'timeout', msg: '网络异常啦！请请检查网络连接！' };
   }
 };

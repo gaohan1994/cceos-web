@@ -13,7 +13,7 @@ import classnames from 'classnames';
 
 const historyPrefix = 'cceos-pay';
 
-export interface Props { 
+export interface Props {
   match: {
     params: {
       openId: string;
@@ -24,7 +24,7 @@ export interface Props {
   fetchWechatRecords: (params: FetchListField) => any;
 }
 
-interface State { 
+interface State {
   refreshing: boolean;
 }
 
@@ -33,7 +33,7 @@ let pageSize: number = 20;
 
 class History extends React.Component<Props, State> {
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       refreshing: false
@@ -49,18 +49,19 @@ class History extends React.Component<Props, State> {
     try {
       const token = getFetchRecordsToken(this.props.state, pageNum);
       if (token === true || pageNum === 1) {
-        await this.props.fetchWechatRecords({pageNum: pageNum++, pageSize: pageSize});  
+        await this.props.fetchWechatRecords({ pageNum: pageNum++, pageSize: pageSize });
       }
     } catch (error) {
       Toast.fail(error.message);
     }
   }
-  
+
   public render() {
     const { wechatRecord } = this.props;
     return (
       <div className={historyPrefix}>
         <PullToRefresh
+          getScrollContainer={() => <div />}
           damping={60}
           direction={'up'}
           distanceToRefresh={25}
@@ -71,7 +72,7 @@ class History extends React.Component<Props, State> {
             finish: '加载完毕'
           }}
           refreshing={this.state.refreshing}
-          style={{height: '100vh', overflow: 'auto'}}
+          style={{ height: '100vh', overflow: 'auto' }}
           onRefresh={() => {
             this.setState({ refreshing: true });
             setTimeout(() => {
@@ -83,11 +84,11 @@ class History extends React.Component<Props, State> {
           {
             wechatRecord && wechatRecord.length > 0 ? wechatRecord.map((rowData: any, index: number) => {
               return (
-                <div 
+                <div
                   key={`${index}`}
                   className={classnames(`${historyPrefix}-list-item`, `${historyPrefix}-list-item-border`)}
                 >
-                  <div className={classnames(`${historyPrefix}-list-item-dot`)}/>
+                  <div className={classnames(`${historyPrefix}-list-item-dot`)} />
                   <div className={classnames(`${historyPrefix}-list-item-content`)}>
                     <div>
                       <div className={`${historyPrefix}-list-item-title`}>{rowData.name}</div>
@@ -98,8 +99,8 @@ class History extends React.Component<Props, State> {
                 </div>
               );
             }) : (
-              <div className={`${historyPrefix}-list-null`}>暂无充值记录</div>
-            )
+                <div className={`${historyPrefix}-list-null`}>暂无充值记录</div>
+              )
           }
         </PullToRefresh>
       </div>
@@ -114,15 +115,15 @@ const mapState = (state: Store) => ({
 
 const mapDispatch = (dispatch: Dispatch, ownProps: Props) => {
 
-  function fetchWechatRecords (params: FetchListField) {
+  function fetchWechatRecords(params: FetchListField) {
     return async (dispatch: Dispatch): Promise<any> => {
       try {
         invariant(ownProps.match.params && ownProps.match.params.openId, '请输入要查询的员工号');
         const payload = { ...params, openId: ownProps.match.params.openId };
-        const { success, result } = await Api.wechatRecords(payload); 
+        const { success, result } = await Api.wechatRecords(payload);
 
         invariant(success, result || ' ');
-        return saveWechatRecords(dispatch, {...result, pageNum: params.pageNum});
+        return saveWechatRecords(dispatch, { ...result, pageNum: params.pageNum });
       } catch (error) {
         Toast.fail(error.message);
       }

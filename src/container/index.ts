@@ -6,3 +6,4 @@ export { default as User } from './User/User';
 export { default as History } from './Pay/History';
 export { default as Result } from './Pay/Result';
 export { default as BindResult } from './User/BindResult';
+export { default as Chat } from './Chat';

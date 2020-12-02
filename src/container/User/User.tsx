@@ -31,7 +31,7 @@ function mapKeyToValue (key: string) {
     case 'purchase':
       return '雨滴券';
     case 'cc':
-      return '雨滴CC';
+      return '雨滴KCC';
     default:
       return '';
   }
@@ -114,8 +114,9 @@ const mapDispatch = (dispatch: Dispatch, ownProps: Props) => {
       try {
         const { params: { openId } } = match;
         const payload = { openId };
+        Toast.loading('加载中...', 30);
         const { success, result } = await Api.wechatPersonal(payload);
-
+        Toast.hide();
         invariant(success, result || ' ');
         saveWechatPersonal(dispatch, result);
       } catch (error) {

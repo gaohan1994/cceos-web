@@ -68,9 +68,9 @@ class Packet extends Component<Props, State> {
     try {
       this.changeLoading(true);
       invariant(match.params.bonusToken && typeof match.params.bonusToken === 'string', '请输入红包口令');
-      const { bonusDetail, receiverList } = await fetchData(match.params.bonusToken);
+      const { bonusDetailVO, receiverList } = await fetchData(match.params.bonusToken);
 
-      invariant(bonusDetail.status !== 2, '红包已过期');
+      invariant(bonusDetailVO.status !== 2, '红包已过期');
       invariant(match.params.bonusToken && match.params.openId, '请输入红包口令和微信id');
 
       if (checkUserInReceiverList(match.params.openId, receiverList) === -1) {
@@ -78,7 +78,7 @@ class Packet extends Component<Props, State> {
          * [没有领取过且红包是领完状态的再显示红包已领完]
          * [说明没有抢过红包则抢红包，抢完之后再次请求详情接口]
          */
-        invariant(bonusDetail.status !== 1, '红包已领完');
+        invariant(bonusDetailVO.status !== 1, '红包已领完');
         await packetGrab(match.params.bonusToken, match.params.openId);
         await fetchData(match.params.bonusToken);
         this.changeLoading(false);
@@ -112,13 +112,13 @@ class Packet extends Component<Props, State> {
             {/* 如果当前用户有抢到红包则显示当前用户抢到的钱，如果没有抢到红包则不显示金额 */}
             {(bonusDetail.receiverList && checkUserInReceiverList(this.props.match.params.openId, bonusDetail.receiverList) !== -1) && (
               <span className={classnames(`${PacketPrefix}-text`, `${PacketPrefix}-header-content-detail`)} >
-                {`${bonusDetail.receiverList[checkUserInReceiverList(this.props.match.params.openId, bonusDetail.receiverList)].amount} CC`}
+                {`${bonusDetail.receiverList[checkUserInReceiverList(this.props.match.params.openId, bonusDetail.receiverList)].amount} KCC`}
               </span>
             )}
           </div>
           <List className={classnames(`${PacketPrefix}-list`)}>
             <div className={`${PacketPrefix}-list-item-flag`}>
-              已领取 {bonusDetail.recvNum} / {bonusDetail.number} 个{bonusDetail.openId === this.props.match.params.openId && `，共 ${bonusDetail.amount} CC`}
+              已领取 {bonusDetail.recvNum} / {bonusDetail.number} 个{bonusDetail.openId === this.props.match.params.openId && `，共 ${bonusDetail.amount} KCC`}
             </div>
             {
               bonusDetail && bonusDetail.receiverList && bonusDetail.receiverList.map((item: Receiver, index: number) => {
@@ -140,7 +140,7 @@ class Packet extends Component<Props, State> {
                       </div>
 
                       <div className={classnames(`${ListItemClassName}-content`, `${ListItemClassName}-sub-content`)}>
-                        <span className={classnames(`${PacketPrefix}-title`, `${ListItemClassName}-name`)} >{`${item.amount} CC`}</span>
+                        <span className={classnames(`${PacketPrefix}-title`, `${ListItemClassName}-name`)} >{`${item.amount} KCC`}</span>
                         {item.bestLuck === 1 && (<span className={classnames(`${ListItemClassName}-best`)} />)}
                       </div>
                     </div>
@@ -168,7 +168,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => {
         invariant(bonusToken, '请输入红包口令');
         const { success, result } = await Api.bonusDetail(bonusToken);
         invariant(success, result || ' ');
-        saveBonusDetail(dispatch, result);
+        saveBonusDetail(dispatch, {receiverList: result.receiverList, bonusDetail: result.bonusDetailVO});
         return result;
       } catch (error) {
         Toast.fail(error.message);
