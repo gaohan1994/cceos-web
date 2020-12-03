@@ -105,6 +105,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 客户聊天记录
+   * @param params 
+   */
   public chatLogHistory = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/chatLog/customer/history${jsonToQueryString(params)}`,
@@ -112,6 +116,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 获取客户token
+   * @param params 
+   */
   public chatToken = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/oauth/customer/token`,
@@ -120,6 +128,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 聊天图片上传
+   * @param params 
+   */
   public chatImgUpload = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/chatLog/img`,
@@ -128,6 +140,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 查询本系统下问题分类
+   * @param params 
+   */
   public questionCategory = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/category${jsonToQueryString(params)}`,
@@ -135,6 +151,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 根据分类id查询具体问题
+   * @param params 
+   */
   public questionQuestion = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/question${jsonToQueryString(params)}`,
@@ -142,6 +162,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 根据问题id查询问题答案
+   * @param params 
+   */
   public questionAnswer = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/question/answer${jsonToQueryString(params)}`,
@@ -149,6 +173,10 @@ class ApiService {
     );
   }
 
+  /**
+   * @todo 查询空闲客服
+   * @param params 
+   */
   public agentIdle = async (params: any): Promise<ResponseBasic<any>> => {
     return request(
       `${AppConfig.CHART_API_ENTRY}/project-gateway/api/agent/idle${jsonToQueryString(params)}`,

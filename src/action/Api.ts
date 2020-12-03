@@ -100,6 +100,12 @@ class Api {
     }
   }
 
+  /**
+   * @todo 默认授权接口
+   * @param func 
+   * @param params 
+   * @param callback 
+   */
   public defaultAuthorize = async (func: any, params: any, callback?: any) => {
     const { code, data, msg } = await func(params);
     const customerId = useQueryParam('id');
@@ -114,7 +120,7 @@ class Api {
             new Promise(async (resolve) => {
               const params = {
                 username: customerId,
-                password: md5('123456')
+                password: md5('123456') // 登录密码
               }
               Toast.loading('授权中...');
               const res = await this.chatToken(params);
@@ -139,11 +145,20 @@ class Api {
     return result;
   }
 
+  /**
+   * @todo 客户聊天记录
+   * @param params 
+   * @param callback 
+   */
   public chatLogHistory = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.chatLogHistory, params, callback);
     return result;
   }
 
+  /**
+   * @todo 获取客户token
+   * @param params 
+   */
   public chatToken = async (params: any): Promise<ApiBasic<any>> => {
     const { code, data, msg } = await ApiService.chatToken(params);
     if (code === 'response.success') {
@@ -154,26 +169,50 @@ class Api {
     }
   }
 
+  /**
+   * @todo 聊天图片上传
+   * @param params 
+   * @param callback 
+   */
   public chatImgUpload = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.chatImgUpload, params, callback);
     return result;
   }
 
+  /**
+  * @todo 查询本系统下问题分类
+  * @param params 
+  */
   public questionCategory = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.questionCategory, params, callback);
     return result;
   }
 
+  /**
+   * @todo 根据分类id查询具体问题
+   * @param params 
+   * @param callback 
+   */
   public questionQuestion = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.questionQuestion, params, callback);
     return result;
   }
 
+  /**
+   * @todo 根据问题id查询问题答案
+   * @param params 
+   * @param callback 
+   */
   public questionAnswer = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.questionAnswer, params, callback);
     return result;
   }
 
+  /**
+   * @todo 查询空闲客服
+   * @param params 
+   * @param callback 
+   */
   public agentIdle = async (params: any, callback?: any): Promise<ApiBasic<any>> => {
     const result = await this.defaultAuthorize(ApiService.agentIdle, params, callback);
     return result;
